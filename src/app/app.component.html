@@ -1,4 +1,12 @@
 
 <h1>lkashjdlkq2jw</h1>
 <app-nav-bar></app-nav-bar>
+<div>
+    <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
+    <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
+</div>
+
+<div class="hidden animation-duration-500 box">
+    <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">Content</div>
+</div>
 <router-outlet></router-outlet>
