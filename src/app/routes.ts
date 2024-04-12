@@ -7,6 +7,18 @@ const routeConfig: Routes = [{
   component: NavBarComponent,
   title: 'Home'
 },{
+  path: 'testeo',
+  component: MostradorDiscoDuroComponent,
+  title: 'testeo'
+},{
+  path: 'perifericos',
+  component: MostradorDiscoDuroComponent,
+  title: 'Perifericos'
+},{
+  path: 'ram',
+  component: MostradorDiscoDuroComponent,
+  title: 'Ram'
+},{
   path: 'discos-duros',
   component: MostradorDiscoDuroComponent,
   title: 'Discos duros'
