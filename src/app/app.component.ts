@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavBarComponent } from '../components/nav-bar/nav-bar.component';
-import { DisplayDiscoDuroComponent } from '../components/display-disco-duro/display-disco-duro.component';
-import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ButtonModule, RouterOutlet, NavBarComponent, DisplayDiscoDuroComponent, RouterModule],
+  imports: [CardModule, AccordionModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.less'
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'TesisFrontEnd2';
+  title = 'TesisFrontEnd3';
 }
-
