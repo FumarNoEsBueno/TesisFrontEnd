@@ -10,9 +10,26 @@ export class ComprasService {
     private http:HttpClient
   ) { }
 
+  getDisponibilidad(){
+    return this.http.get('http://127.0.0.1:8000/api/parametros/disponibilidad');
+  }
+
+  getSistemaArchivos(){
+    return this.http.get('http://127.0.0.1:8000/api/parametros/sistema-archivos');
+  }
+
+  getTamano(){
+    return this.http.get('http://127.0.0.1:8000/api/parametros/tamano');
+  }
+
+  getMarcas(){
+    return this.http.get('http://127.0.0.1:8000/api/parametros/marca');
+  }
+
   getEstados(){
     return this.http.get('http://127.0.0.1:8000/api/parametros/estado');
   }
+
   apiCall(){
     return this.http.get('http://127.0.0.1:8000/api/test');
   }
