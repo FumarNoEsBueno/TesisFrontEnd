@@ -30,7 +30,7 @@ export class ComprasService {
     return this.http.get('http://127.0.0.1:8000/api/parametros/estado');
   }
 
-  apiCall(){
-    return this.http.get('http://127.0.0.1:8000/api/test');
+  getDiscosDuros(){
+    return this.http.get('http://127.0.0.1:8000/api/discosDuros');
   }
 }
