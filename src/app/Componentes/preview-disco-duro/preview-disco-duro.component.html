@@ -1,15 +1,26 @@
-<p-card (click)="wea()">
-  <div class="flex align-items-center">
-    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>
-  </div>
-  <div class="flex align-items-center">
-    <span>
-      {{nombre}}
-    </span>
-  </div>
-</p-card>
+<div style="max-width: 300px;">
+  <p-card>
+    <div class="flex align-items-center">
+      <p-image  (click)="mostrarDetalles()" src="http://localhost:8000/api/images/{{imagenUrl}}" alt="Image" height="250" width="250"></p-image>
+    </div>
+    <div>
+      <span style="font-weight: bold;">
+        {{nombre}}
+      </span><br>
+      <span>
+        Precio: {{precio}} Clp.
+      </span><br>
+      <span style="word-wrap: break-word;">
+        {{memoria}} GB, {{marca}}, tamaño: {{tamano}}, sistema de archivos: {{sistemaArchivos}}.
+      </span>
+    </div>
+    <div style="margin-right: 10px; margin-top: 20px; text-align: right;">
+      <p-button [outlined]="true" size="small" label="Añadir al carrito"></p-button>
+    </div>
+  </p-card>
+</div>
 
-<p-dialog header="Header" [(visible)]="visible" [style]="{width: '50vw'}">
+<p-dialog header="Detalles" [(visible)]="visible" [style]="{width: '50vw'}">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

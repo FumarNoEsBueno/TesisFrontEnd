@@ -1,4 +1,4 @@
-<div style="display: flex;" [style]="{ marginLeft:'1%' }">
+<div style="display: flex;" [style]="{ marginLeft:'5%' }">
 
   <div style="margin-right: 1%;" [style]="{ width: '20%' }">
     <p-card header="Discos duros">
@@ -7,63 +7,63 @@
         <p-accordionTab header="Disponibilidad">
           @for (disponibilidad of disponibilidades; track disponibilidades.disponibilidad_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="disponibilidad" value="{{disponibilidad.id}}" label="{{disponibilidad.disponibilidad_nombre}}" [(ngModel)]="disponibilidadesModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="disponibilidad" value="{{disponibilidad.id}}" label="{{disponibilidad.disponibilidad_nombre}}" [(ngModel)]="disponibilidadesModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Estado">
           @for (estado of estados; track estado.estado_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="estado" value="{{estado.id}}" label="{{estado.estado_nombre}}" [(ngModel)]="estadosModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="estado" value="{{estado.id}}" label="{{estado.estado_nombre}}" [(ngModel)]="estadosModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Marcas">
           @for (marca of marcas; track marcas.marca_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="marca" value="{{marca.id}}" label="{{marca.marca_nombre}}" [(ngModel)]="marcasModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="marca" value="{{marca.id}}" label="{{marca.marca_nombre}}" [(ngModel)]="marcasModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Precio">
           @for (precio of precios; track precio.precio_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="precio" value="{{precio.id}}" label="{{precio.precio_nombre}}" [(ngModel)]="preciosModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="precio" value="{{precio.id}}" label="{{precio.precio_nombre}}" [(ngModel)]="preciosModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Capacidad">
           @for (capacidad of capacidades; track capacidad.capacidad_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="capacidad" value="{{capacidad.id}}" label="{{capacidad.capacidad_nombre}}" [(ngModel)]="capacidadesModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="capacidad" value="{{capacidad.id}}" label="{{capacidad.capacidad_nombre}}" [(ngModel)]="capacidadesModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Esperanza de vida">
           @for (esperanza of esperanzas; track esperanza.esperanza_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="esperanza" value="{{esperanza.id}}" label="{{esperanza.esperanza_nombre}}" [(ngModel)]="esperanzasModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="esperanza" value="{{esperanza.id}}" label="{{esperanza.esperanza_nombre}}" [(ngModel)]="esperanzasModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Horas de encendido">
           @for (hora of horas; track hora.hora_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="hora" value="{{hora.id}}" label="{{hora.hora_nombre}}" [(ngModel)]="horasModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="hora" value="{{hora.id}}" label="{{hora.hora_nombre}}" [(ngModel)]="horasModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Sistema de archivos">
           @for (sistemaArchivo of sistemaArchivos; track sistemaArchivos.sistema_archivos_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="sistemaArchivo" value="{{sistemaArchivo.id}}" label="{{sistemaArchivo.sistema_archivos_nombre}}" [(ngModel)]="sistemaArchivosModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="sistemaArchivo" value="{{sistemaArchivo.id}}" label="{{sistemaArchivo.sistema_archivos_nombre}}" [(ngModel)]="sistemaArchivosModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
         <p-accordionTab header="Tamaño">
           @for (tamano of tamanos; track tamanos.tamano_nombre) {
           <div class="flex align-items-center">
-            <p-checkbox name="tamano" value="{{tamano.id}}" label="{{tamano.tamano_nombre}}" [(ngModel)]="tamanosModel"></p-checkbox>
+            <p-checkbox (onChange)="onFilterChange()" name="tamano" value="{{tamano.id}}" label="{{tamano.tamano_nombre}}" [(ngModel)]="tamanosModel"></p-checkbox>
           </div>
           }
         </p-accordionTab>
@@ -71,15 +71,40 @@
     </p-card>
   </div>
 
-  <div style="display: flex; flex-wrap: wrap;">
-  @for (discoDuro of discosDuros; track discoDuro.id) {
+  <div style="display: flex; flex-wrap: wrap;margin-bottom: 1000px;"
+    [style]="{ width: '80%' }">
+    @if(loading){
+    <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+    </div>
+    }
+    @if(!loading){
+    @for (discoDuro of discosDuros; track discoDuro.id) {
     <div style="margin-right: 10px; margin-bottom: 10px;">
       <app-preview-disco-duro
-        nombre="{{discoDuro.disco_duro_nombre}}">
+        nombre="{{discoDuro.disco_duro_nombre}}"
+        imagenUrl="{{discoDuro.disco_duro_foto}}"
+        crystaldisk="{{discoDuro.disco_duro_crystaldisk}}"
+        esperanzaVida="{{discoDuro.disco_duro_esperanza_vida}}"
+        horas="{{discoDuro.disco_duro_horas_encendido}}"
+        memoria="{{discoDuro.disco_duro_memoria}}"
+        precio="{{discoDuro.disco_duro_precio}}"
+        marca="{{discoDuro.marca_nombre}}"
+        sistemaArchivos="{{discoDuro.sistema_archivos_nombre}}"
+        tamano="{{discoDuro.tamano_nombre}}"
+        >
       </app-preview-disco-duro>
     </div>
-  }
-</div>
+    }
+    }
+    <div class="flex-center">
+      <p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="first" [rows]="rows"
+        [totalRecords]="totalRecords">
+      </p-paginator>
+    </div>
+  </div>
 
 </div>
 

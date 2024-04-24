@@ -5,14 +5,18 @@ import { ComprasService } from '../Services/compras.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { PreviewDiscoDuroComponent } from '../Componentes/preview-disco-duro/preview-disco-duro.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @Component({
   selector: 'app-mostrador-disco-duro',
   standalone: true,
   imports: [CheckboxModule,
+    ProgressSpinnerModule,
     FormsModule,
     PreviewDiscoDuroComponent,
+    PaginatorModule,
     CardModule,
     AccordionModule],
   templateUrl: './mostrador-disco-duro.component.html',
@@ -21,6 +25,14 @@ import { PreviewDiscoDuroComponent } from '../Componentes/preview-disco-duro/pre
 export class MostradorDiscoDuroComponent {
 
   discosDuros: any;
+
+  loading = true;
+
+  first = 1;
+  page = 1;
+  rows: any;
+  totalRecords: any;
+
   estados: any;
   estadosModel: string[] = [];
   marcas: any;
@@ -101,9 +113,44 @@ export class MostradorDiscoDuroComponent {
     this.comprasService.getDisponibilidad().subscribe((res: any) =>{
       this.disponibilidades = res.filter((producto: any) => producto.disponibilidad_nombre !== 'Vendido');
     });
-    this.comprasService.getDiscosDuros().subscribe((res) =>{
-      this.discosDuros = res;
-      console.log(res);
+    this.comprasService.getDiscosDuros(this.page,[],[],[],[],[]).subscribe((res: any) =>{
+      this.discosDuros = res.data;
+      console.log(res.data);
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
+    });
+  }
+
+  onFilterChange(){
+    this.loading = true;
+    this.comprasService.getDiscosDuros(this.page,
+                                       this.disponibilidadesModel,
+                                       this.estadosModel,
+                                       this.tamanosModel,
+                                       this.marcasModel,
+                                       this.sistemaArchivosModel).subscribe((res: any) =>{
+
+      this.discosDuros = res.data;
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
+    });
+  }
+
+  onPageChange(event: any){
+    this.page = event.page + 1;
+    this.loading = true;
+    this.comprasService.getDiscosDuros(this.page,
+                                       this.disponibilidadesModel,
+                                       this.estadosModel,
+                                       this.tamanosModel,
+                                       this.marcasModel,
+                                       this.sistemaArchivosModel).subscribe((res: any) =>{
+      this.discosDuros = res.data;
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
     });
   }
 

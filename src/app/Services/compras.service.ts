@@ -30,7 +30,25 @@ export class ComprasService {
     return this.http.get('http://127.0.0.1:8000/api/parametros/estado');
   }
 
-  getDiscosDuros(){
-    return this.http.get('http://127.0.0.1:8000/api/discosDuros');
+  getDiscosDuros(page:any, disponibilidad: string[], estado: string[], tamano: string[], marca: string[], sistemaArchivos: string[]){
+    let url = 'http://127.0.0.1:8000/api/discosDuros?page='+page;
+
+    disponibilidad.forEach((e: String) => {
+      url = url + '&disponibilidad[]='+e;
+    });
+    estado.forEach((e: String) => {
+      url = url + '&estado[]='+e;
+    });
+    tamano.forEach((e: String) => {
+      url = url + '&tamano[]='+e;
+    });
+    marca.forEach((e: String) => {
+      url = url + '&marca[]='+e;
+    });
+    sistemaArchivos.forEach((e: String) => {
+      url = url + '&sistema_archivos[]='+e;
+    });
+    console.log(url);
+    return this.http.get(url);
   }
 }
