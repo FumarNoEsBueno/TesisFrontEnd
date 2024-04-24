@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
 import { ComprasService } from '../Services/compras.service';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { PreviewDiscoDuroComponent } from '../Componentes/preview-disco-duro/preview-disco-duro.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DiscoDuro } from '../Classes/discoDuro';
 
 
 @Component({
@@ -23,6 +24,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   styleUrl: './mostrador-disco-duro.component.css'
 })
 export class MostradorDiscoDuroComponent {
+
+  @Output() agregarAlCarroOutput = new EventEmitter<number>();
 
   discosDuros: any;
 
@@ -114,8 +117,7 @@ export class MostradorDiscoDuroComponent {
       this.disponibilidades = res.filter((producto: any) => producto.disponibilidad_nombre !== 'Vendido');
     });
     this.comprasService.getDiscosDuros(this.page,[],[],[],[],[]).subscribe((res: any) =>{
-      this.discosDuros = res.data;
-      console.log(res.data);
+      this.discosDuros = res.data.map((item: any) => new DiscoDuro(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
       this.loading = false;
@@ -131,7 +133,7 @@ export class MostradorDiscoDuroComponent {
                                        this.marcasModel,
                                        this.sistemaArchivosModel).subscribe((res: any) =>{
 
-      this.discosDuros = res.data;
+      this.discosDuros = res.data.map((item: any) => new DiscoDuro(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
       this.loading = false;
@@ -147,11 +149,14 @@ export class MostradorDiscoDuroComponent {
                                        this.tamanosModel,
                                        this.marcasModel,
                                        this.sistemaArchivosModel).subscribe((res: any) =>{
-      this.discosDuros = res.data;
+      this.discosDuros = res.data.map((item: any) => new DiscoDuro(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
       this.loading = false;
     });
   }
 
+  agregarAlCarro(id: any){
+    this.agregarAlCarroOutput.emit(id);
+  }
 }

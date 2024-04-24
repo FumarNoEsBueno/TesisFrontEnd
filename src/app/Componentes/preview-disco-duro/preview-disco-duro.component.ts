@@ -1,8 +1,9 @@
-import { Component, Input} from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { MiClase } from '../../Classes/test';
 
 @Component({
   selector: 'app-preview-disco-duro',
@@ -20,24 +21,20 @@ import { ButtonModule } from 'primeng/button';
 
 export class PreviewDiscoDuroComponent {
 
-  @Input() nombre: any;
-  @Input() imagenUrl: any;
-  @Input() crystaldisk: any;
-  @Input() esperanzaVida: any;
-  @Input() horas: any;
-  @Input() memoria: any;
-  @Input() precio: any;
-  @Input() marca: any;
-  @Input() sistemaArchivos: any;
-  @Input() tamano: any;
+  @Input() discoDuro: any;
+
+  @Output() agregarAlCarro = new EventEmitter<number>();
+
 
   visible = false;
 
   ngOnInit(){
+    console.log(this.discoDuro.id);
   }
 
   mostrarDetalles(){
     this.visible = true;
+    this.agregarAlCarro.emit(this.discoDuro.id);
   }
 
 }

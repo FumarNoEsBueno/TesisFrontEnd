@@ -3,7 +3,7 @@
   <div style="margin-right: 1%;" [style]="{ width: '20%' }">
     <p-card header="Discos duros">
 
-      <p-accordion [activeIndex]="[0,1,2,3,4,5,6,7,8]" [multiple]="true">
+      <p-accordion [activeIndex]="[0,1,2,3,4,5]" [multiple]="true">
         <p-accordionTab header="Disponibilidad">
           @for (disponibilidad of disponibilidades; track disponibilidades.disponibilidad_nombre) {
           <div class="flex align-items-center">
@@ -71,7 +71,7 @@
     </p-card>
   </div>
 
-  <div style="display: flex; flex-wrap: wrap;margin-bottom: 1000px;"
+  <div style="display: flex; flex-wrap: wrap;"
     [style]="{ width: '80%' }">
     @if(loading){
     <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
@@ -82,28 +82,25 @@
     @for (discoDuro of discosDuros; track discoDuro.id) {
     <div style="margin-right: 10px; margin-bottom: 10px;">
       <app-preview-disco-duro
-        nombre="{{discoDuro.disco_duro_nombre}}"
-        imagenUrl="{{discoDuro.disco_duro_foto}}"
-        crystaldisk="{{discoDuro.disco_duro_crystaldisk}}"
-        esperanzaVida="{{discoDuro.disco_duro_esperanza_vida}}"
-        horas="{{discoDuro.disco_duro_horas_encendido}}"
-        memoria="{{discoDuro.disco_duro_memoria}}"
-        precio="{{discoDuro.disco_duro_precio}}"
-        marca="{{discoDuro.marca_nombre}}"
-        sistemaArchivos="{{discoDuro.sistema_archivos_nombre}}"
-        tamano="{{discoDuro.tamano_nombre}}"
+        [discoDuro]="discoDuro"
+        (agregarAlCarro)="agregarAlCarro($event)"
         >
       </app-preview-disco-duro>
     </div>
     }
     }
-    <div class="flex-center">
+    <div style="display: block; width: 100%;">
+      <!-- Contenido anterior -->
+
+      <div style="clear: both;"></div> <!-- Clearfix para forzar un salto de línea -->
+
       <p-paginator
         (onPageChange)="onPageChange($event)"
         [first]="first" [rows]="rows"
         [totalRecords]="totalRecords">
       </p-paginator>
     </div>
+
   </div>
 
 </div>
