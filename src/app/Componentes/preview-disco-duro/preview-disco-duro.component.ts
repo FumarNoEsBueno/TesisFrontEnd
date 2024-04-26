@@ -3,7 +3,7 @@ import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { MiClase } from '../../Classes/test';
+import { DiscoDuro } from '../../Classes/discoDuro';
 
 @Component({
   selector: 'app-preview-disco-duro',
@@ -23,18 +23,20 @@ export class PreviewDiscoDuroComponent {
 
   @Input() discoDuro: any;
 
-  @Output() agregarAlCarro = new EventEmitter<number>();
+  @Output() agregarAlCarro = new EventEmitter<DiscoDuro>();
 
 
   visible = false;
 
   ngOnInit(){
-    console.log(this.discoDuro.id);
+  }
+
+  anadirAlCarrito(){
+    this.agregarAlCarro.emit(this.discoDuro);
   }
 
   mostrarDetalles(){
     this.visible = true;
-    this.agregarAlCarro.emit(this.discoDuro.id);
   }
 
 }

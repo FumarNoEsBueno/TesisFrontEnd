@@ -48,7 +48,6 @@ export class ComprasService {
     sistemaArchivos.forEach((e: String) => {
       url = url + '&sistema_archivos[]='+e;
     });
-    console.log(url);
     return this.http.get(url);
   }
 }

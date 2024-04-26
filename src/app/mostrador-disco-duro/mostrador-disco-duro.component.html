@@ -71,8 +71,7 @@
     </p-card>
   </div>
 
-  <div style="display: flex; flex-wrap: wrap;"
-    [style]="{ width: '80%' }">
+  <div style="display: flex; flex-wrap: wrap;" [style]="{ width: '80%' }">
     @if(loading){
     <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
         <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
@@ -89,20 +88,15 @@
     </div>
     }
     }
-    <div style="display: block; width: 100%;">
-      <!-- Contenido anterior -->
-
-      <div style="clear: both;"></div> <!-- Clearfix para forzar un salto de línea -->
-
+    <div style="display: block; width: 80%;">
+      <div style="clear: both;"></div>
       <p-paginator
         (onPageChange)="onPageChange($event)"
         [first]="first" [rows]="rows"
         [totalRecords]="totalRecords">
       </p-paginator>
     </div>
-
   </div>
-
 </div>
 
 

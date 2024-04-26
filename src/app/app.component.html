@@ -1,3 +1,7 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar (abrirCarritoOutput)="abrirCarrito()"></app-nav-bar>
 <router-outlet (activate)="subscribeToChildEvent($event)"></router-outlet>
-<app-preview-compra></app-preview-compra>
+<app-preview-compra
+  (discoDuroOutput)="actualizarCarritoDiscosDuros($event)"
+  (cerrarCarrito)="abrirCarrito()"
+  [abierto]="expandedCarrito"
+  [discosDuros]="discosDuros"></app-preview-compra>

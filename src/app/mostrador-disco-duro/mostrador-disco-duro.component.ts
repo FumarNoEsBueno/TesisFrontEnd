@@ -25,7 +25,7 @@ import { DiscoDuro } from '../Classes/discoDuro';
 })
 export class MostradorDiscoDuroComponent {
 
-  @Output() agregarAlCarroOutput = new EventEmitter<number>();
+  @Output() agregarAlCarroOutput = new EventEmitter<DiscoDuro>();
 
   discosDuros: any;
 
@@ -156,7 +156,7 @@ export class MostradorDiscoDuroComponent {
     });
   }
 
-  agregarAlCarro(id: any){
-    this.agregarAlCarroOutput.emit(id);
+  agregarAlCarro(discoDuro: DiscoDuro){
+    this.agregarAlCarroOutput.emit(discoDuro);
   }
 }
