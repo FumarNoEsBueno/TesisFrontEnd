@@ -4,7 +4,7 @@
       <p> El carrito de compras está vacio. </p>
     }
     @if(discosDuros.length != 0){
-    <p-button size="small">
+    <p-button size="small" (click)="finalizarCompra()">
       Finalizar compra
     </p-button>
       }
@@ -18,3 +18,38 @@
     </div>
     }
 </p-sidebar>
+<p-dialog header="Finalizar compra" [(visible)]="finalizarCompraVisible" [style]="{width: '50vw'}">
+  @switch(progresoCompra){
+  @case(0){
+  <p-stepper [linear]="true">
+    <p-stepperPanel header="Carrito">
+        <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+            <div style="text-align: right;" class="flex pt-4 justify-content-end">
+                <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
+        ></ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Datos">
+        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+            <div style="text-align: right;" class="flex pt-4 justify-content-between">
+                <p-button label="Atras" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+                <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
+        ></ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Pago">
+        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+            <div style="text-align: right;" class="flex pt-4 justify-content-end">
+                <p-button label="Atras" icon="pi pi-arrow-left" iconPos="left" (onClick)="prevCallback.emit()" />
+                <p-button label="Finalizar" icon="pi pi-flag" iconPos="right"/></div>
+        </ng-template>
+    </p-stepperPanel>
+</p-stepper>
+  }
+  @case(1){
+  <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+  }
+  @case(2){
+  }
+  @case(3){
+  }
+  }
+</p-dialog>

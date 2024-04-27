@@ -14,10 +14,10 @@ export class NavBarComponent {
   @Output() abrirCarritoOutput = new EventEmitter<void>();
 
   items = [
-      {label: 'Inicio', icon: 'pi pi-home', routerLink: ['/']},
-      {label: 'Discos duros', icon: 'pi pi-list', routerLink: ['/disco-duro']},
-      {label: 'Memorias ram', icon: 'pi pi-check', routerLink: ['/ram']},
-      {label: 'Perifericos', icon: 'pi pi-list', routerLink: ['/periferico']},
+      {label: 'Inicio', icon: 'pi pi-home', routerLink: ['./']},
+      {label: 'Discos duros', icon: 'pi pi-list', routerLink: ['./disco-duro']},
+      {label: 'Memorias ram', icon: 'pi pi-check', routerLink: ['./ram']},
+      {label: 'Perifericos', icon: 'pi pi-list', routerLink: ['./periferico']},
     ];
 
     abrirCarrito(){

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DiscoDuro } from '../Classes/discoDuro';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class ComprasService {
 
   getMarcas(){
     return this.http.get('http://127.0.0.1:8000/api/parametros/marca');
+  }
+
+  comprarObjetos(discosDuros: DiscoDuro[]){
+    return this.http.post('http://127.0.0.1:8000/api/comprar', discosDuros);
   }
 
   getEstados(){
