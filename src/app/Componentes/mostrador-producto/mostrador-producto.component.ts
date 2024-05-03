@@ -3,10 +3,10 @@ import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { DiscoDuro } from '../../Classes/discoDuro';
+import { Producto } from '../../Classes/Producto';
 
 @Component({
-  selector: 'app-preview-disco-duro',
+  selector: 'app-mostrador-producto',
   standalone: true,
   imports: [
     CardModule,
@@ -14,17 +14,15 @@ import { DiscoDuro } from '../../Classes/discoDuro';
     DialogModule,
     ImageModule
   ],
-  templateUrl: './preview-disco-duro.component.html',
-  styleUrl: './preview-disco-duro.component.css'
+  templateUrl: './mostrador-producto.component.html',
+  styleUrl: './mostrador-producto.component.css'
 })
 
 
-export class PreviewDiscoDuroComponent {
+export class MostradorProductoComponent {
 
-  @Input() discoDuro: any;
-
-  @Output() agregarAlCarro = new EventEmitter<DiscoDuro>();
-
+  @Input() producto: any;
+  @Output() agregarAlCarro = new EventEmitter<Producto>();
 
   visible = false;
 
@@ -32,7 +30,7 @@ export class PreviewDiscoDuroComponent {
   }
 
   anadirAlCarrito(){
-    this.agregarAlCarro.emit(this.discoDuro);
+    this.agregarAlCarro.emit(this.producto);
   }
 
   mostrarDetalles(){

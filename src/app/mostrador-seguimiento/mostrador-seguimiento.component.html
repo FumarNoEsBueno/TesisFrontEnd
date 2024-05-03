@@ -1,0 +1,19 @@
+<div [style]="{ marginLeft:'11%',marginRight:'11%' }">
+  <p-card>
+    <div>
+      <input type="text" pInputText [(ngModel)]="codigo" />
+      <p-button (click)="revisarCompra()">
+        Busca
+      </p-button>
+    </div>
+    <div>
+      @if(compras.length != 0){
+      <span>Productos:</span>
+      @for(compra of compras; track compra.id){
+          <app-mostrador-compra [eliminable]="false" [producto]="compra">
+          </app-mostrador-compra>
+      }
+      }
+    </div>
+  </p-card>
+</div>

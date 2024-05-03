@@ -1,4 +1,4 @@
-<div style="display: flex;" [style]="{ marginLeft:'11%' }">
+<div style="display: flex;">
 
   <div style="margin-right: 1%;" [style]="{ width: '20%' }">
     <p-card header="Discos duros">
@@ -80,11 +80,11 @@
     @if(!loading){
     @for (discoDuro of discosDuros; track discoDuro.id) {
     <div style="margin-right: 10px; margin-bottom: 10px;">
-      <app-preview-disco-duro
-        [discoDuro]="discoDuro"
+      <app-mostrador-producto
+        [producto]="discoDuro"
         (agregarAlCarro)="agregarAlCarro($event)"
         >
-      </app-preview-disco-duro>
+      </app-mostrador-producto>
     </div>
     }
     }

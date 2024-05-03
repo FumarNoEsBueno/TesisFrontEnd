@@ -15,9 +15,10 @@ export class NavBarComponent {
 
   items = [
       {label: 'Inicio', icon: 'pi pi-home', routerLink: ['./']},
-      {label: 'Discos duros', icon: 'pi pi-list', routerLink: ['./disco-duro']},
-      {label: 'Memorias ram', icon: 'pi pi-check', routerLink: ['./ram']},
-      {label: 'Perifericos', icon: 'pi pi-list', routerLink: ['./periferico']},
+      {label: 'Discos duros',  routerLink: ['./disco-duro']},
+      {label: 'Memorias ram',  routerLink: ['./ram']},
+      {label: 'Perifericos',  routerLink: ['./periferico']},
+      {label: 'Seguimiento de compra',  routerLink: ['./seguimiento']},
     ];
 
     abrirCarrito(){

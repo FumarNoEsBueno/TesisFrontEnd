@@ -3,7 +3,7 @@ import { MostradorDiscoDuroComponent } from './mostrador-disco-duro/mostrador-di
 import { HomePageComponent } from './home-page/home-page.component';
 import { MostradorRamComponent } from './mostrador-ram/mostrador-ram.component';
 import { MostradorPerifericoComponent } from './mostrador-periferico/mostrador-periferico.component';
-import { CarritoComprasComponent } from './carrito-compras/carrito-compras.component';
+import { MostradorSeguimientoComponent } from './mostrador-seguimiento/mostrador-seguimiento.component';
 
 export const routes: Routes = [{
   path: '',
@@ -14,9 +14,9 @@ export const routes: Routes = [{
   component: MostradorRamComponent,
   title: 'MidTech: Rams'
 },{
-  path: 'carrito-compras',
-  component: CarritoComprasComponent,
-  title: 'MidTech: carrito de compras'
+  path: 'seguimiento',
+  component: MostradorSeguimientoComponent,
+  title: 'MidTech: seguimiento'
 },{
   path: 'periferico',
   component: MostradorPerifericoComponent,

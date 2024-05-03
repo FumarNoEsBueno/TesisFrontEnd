@@ -1,55 +1,123 @@
-<p-sidebar (onHide)="cerrarSidebar()" showCloseIcon="false" [visible]="abierto"  position="right">
+<p-sidebar [style]="{width:'25%'}" (onHide)="cerrarSidebar()" showCloseIcon="false" [visible]="abierto"  position="right">
     <h3>Carrito de compras</h3>
-    @if(discosDuros.length == 0){
+    @if(productos.length == 0){
       <p> El carrito de compras está vacio. </p>
     }
-    @if(discosDuros.length != 0){
-    <p-button size="small" (click)="finalizarCompra()">
+    @if(productos.length != 0){
+    <p>Costo total: {{costoTotal}}</p>
+    <p-button size="small" (click)="continuarCompra()">
       Finalizar compra
     </p-button>
       }
-    @for (discoDuro of discosDuros; track discoDuro.id) {
-    <div style="margin-right: 10px; margin-bottom: 10px;">
-      <p>
-      {{discoDuro.nombre}}
-      </p>
-      <p-button icon="pi pi-trash" size="small" (click)="eliminarCompra(discoDuro.id)">
-      </p-button>
-    </div>
+    @for (producto of productos; track producto.id) {
+    <app-mostrador-compra (eliminarCompra)="eliminarCompra($event)" [producto]="producto">
+    </app-mostrador-compra>
     }
 </p-sidebar>
-<p-dialog header="Finalizar compra" [(visible)]="finalizarCompraVisible" [style]="{width: '50vw'}">
+<p-dialog [draggable]="false" header="Finalizar compra" [(visible)]="finalizarCompraVisible" [style]="{width: '50vw'}">
   @switch(progresoCompra){
   @case(0){
-  <p-stepper [linear]="true">
+  <p-stepper [(activeStep)]="pasoCompra" [linear]="true">
     <p-stepperPanel header="Carrito">
         <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+          <p>Costo total: {{costoTotal}}</p>
+          <p-scrollPanel [style]="{ width: '100%', height: '250px' }">
+          @for (producto of productos; track producto.id) {
+          <app-mostrador-compra (eliminarCompra)="eliminarCompra($event)" [producto]="producto">
+          </app-mostrador-compra>
+          }
+          </p-scrollPanel>
             <div style="text-align: right;" class="flex pt-4 justify-content-end">
-                <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
+                <p-button label="Confirmar carrito" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
         ></ng-template>
     </p-stepperPanel>
-    <p-stepperPanel header="Datos">
+    <p-stepperPanel header="Retiro">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-            <div style="text-align: right;" class="flex pt-4 justify-content-between">
-                <p-button label="Atras" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
-        ></ng-template>
+          <span>Metodo de retiro:</span>
+          <div class="flex justify-content-between">
+            <p-checkbox label="Retiro en tienda"
+              name="retiro"
+              value="retiro"
+              [(ngModel)]="selectedRetiro"></p-checkbox>
+            <p-checkbox label="Despacho a domicilio"
+              value="despacho"
+              [disabled]="true"
+              [style]="{ 'margin-left': '30px' }"
+              [(ngModel)]="selectedRetiro"></p-checkbox>
+          </div>
+          <p-scrollPanel [style]="{ width: '100%', height: '250px' }">
+          </p-scrollPanel>
+          <div class="flex justify-content-between">
+              <p-button [style]="{ 'float': 'left' }" label="Atras" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+              <p-button [style]="{ 'float': 'right' }" label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+          </div>
+        </ng-template>
     </p-stepperPanel>
     <p-stepperPanel header="Pago">
-        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-            <div style="text-align: right;" class="flex pt-4 justify-content-end">
-                <p-button label="Atras" icon="pi pi-arrow-left" iconPos="left" (onClick)="prevCallback.emit()" />
-                <p-button label="Finalizar" icon="pi pi-flag" iconPos="right"/></div>
-        </ng-template>
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+        <span>Medio de pago:</span>
+        <div class="flex justify-content-between">
+            <p-radioButton
+              name="Transferencia"
+              value="transferencia"
+              autofocus="true"
+              [(ngModel)]="selectedPago"
+              inputId="1"></p-radioButton>
+            <label for="1" class="ml-2">Transferencia</label>
+            <p-radioButton
+              name="Pago en tienda"
+              value="tienda"
+              [style]="{ 'margin-left': '30px' }"
+              [(ngModel)]="selectedPago"
+              inputId="ingredient2"></p-radioButton>
+            <label for="ingredient2" class="ml-2">Pago en tienda</label>
+            <p-radioButton
+              name="WebPay"
+              value="web"
+              [disabled]="true"
+              [style]="{ 'margin-left': '30px' }"
+              [(ngModel)]="selectedPago"
+              inputId="ingredient3"></p-radioButton>
+            <label for="ingredient3" pTooltip="Temporalmente no disponible" class="ml-2">WebPay</label>
+        </div>
+          <p-scrollPanel [style]="{ width: '100%', height: '250px' }">
+          </p-scrollPanel>
+
+        <div style="text-align: right;" class="flex pt-4 justify-content-end">
+          <p-button [style]="{ 'float': 'left' }" label="Atras" icon="pi pi-arrow-left" iconPos="left" (onClick)="prevCallback.emit()" />
+            <p-button [style]="{ 'float': 'right' }" label="Finalizar" icon="pi pi-flag" iconPos="right" (onClick)="finalizarCompra()"/></div>
+      </ng-template>
     </p-stepperPanel>
 </p-stepper>
   }
   @case(1){
-  <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+  <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+  </div>
   }
   @case(2){
+    <h3>Compra completada correctamente</h3>
+    <div>
+      <span>
+      Una copia de los detalles a sido enviada a su correo "{{detallesCompra.compra_email}}"
+    </span>
+    </div>
+    <div>
+    <span>Codigo compra</span>
+    <p-badge pTooltip="Use este codigo en la seccion de 'Seguimiento de compra' para ver el estado de su pedido"
+      badgeSize="small" value="?"></p-badge>
+    <span>: {{detallesCompra.compra_codigo}} </span>
+    </div>
+    <div>
+      <span>Su pedido se empezara a procesar una vez se haga el deposito a la siguiente
+        cuenta bancaria y se envie el comprobante al email adjunto:</span>
+    </div>
+    <div>
+      <span> *Datos bancarios de la empresa* </span>
+    </div>
   }
   @case(3){
+    Algo salio mal
   }
   }
 </p-dialog>

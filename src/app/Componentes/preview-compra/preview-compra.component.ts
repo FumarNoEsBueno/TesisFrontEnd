@@ -1,18 +1,32 @@
-import { Component, Input, EventEmitter, Output  } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
-import { DiscoDuro } from '../../Classes/discoDuro';
 import { ButtonModule } from 'primeng/button';
-import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { StepperModule } from 'primeng/stepper';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MostradorCompraComponent } from '../mostrador-compra/mostrador-compra.component';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ComprasService } from '../../Services/compras.service';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TooltipModule } from 'primeng/tooltip';
+import { BadgeModule } from 'primeng/badge';
+import { Producto } from '../../Classes/Producto';
 
 @Component({
   selector: 'app-preview-compra',
   standalone: true,
   imports: [SidebarModule,
+    BadgeModule,
+    TooltipModule,
+    RadioButtonModule,
+    FormsModule,
+    CheckboxModule,
     DialogModule,
+    ScrollPanelModule,
     ProgressSpinnerModule,
+    MostradorCompraComponent,
     StepperModule,
     ButtonModule,
   ],
@@ -21,30 +35,60 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 })
 export class PreviewCompraComponent {
 
-  constructor(private router: Router){}
+  constructor(private compraService: ComprasService){}
 
   @Input() abierto: any;
-  @Input() discosDuros: DiscoDuro[] = [];
+  @Input() costoTotal: any;
+  @Input() productos: Producto[] = [];
 
   @Output() cerrarCarrito = new EventEmitter<void>();
-  @Output() discoDuroOutput = new EventEmitter<DiscoDuro[]>();
+  @Output() discoDuroOutput = new EventEmitter<Producto[]>();
+  @Output() recargarPagina = new EventEmitter<void>();
 
+  selectedPago: any[] = ["transferencia"];
+  selectedRetiro: any[] = ["retiro"];
   finalizarCompraVisible = false;
+  value: any;
   progresoCompra = 0;
+  pasoCompra = 0;
+  detallesCompra: any;
 
-  finalizarCompra(){
+  continuarCompra(){
+    this.progresoCompra = 0;
+    this.pasoCompra = 0;
     this.finalizarCompraVisible = true;
     this.cerrarSidebar();
   }
 
+  finalizarCompra(){
+    this.progresoCompra = 1;
+    this.compraService.comprarObjetos(this.productos).subscribe({
+      next: (res: any) => {
+        this.progresoCompra = 2;
+        this.productos = [];
+        this.discoDuroOutput.emit([]);
+        this.recargarPagina.emit();
+        this.detallesCompra = res;
+        console.log(res);
+      },
+      error: (err: any) => {
+        this.progresoCompra = 3;
+        console.log(err);
+      }
+    });
+  }
 
   cerrarSidebar(){
     this.cerrarCarrito.emit();
   }
 
-  eliminarCompra(id: number){
-    this.discosDuros = this.discosDuros.filter((disco) => disco.id !== id);
-    this.discoDuroOutput.emit(this.discosDuros);
+  eliminarCompra(producto: Producto){
+    this.productos = this.productos.filter((prod) => ((prod.id !== producto.id) || (prod.tipoProducto !== producto.tipoProducto)));
+    this.discoDuroOutput.emit(this.productos);
   }
 
+  filtroPago(event: any){
+    console.log(event);
+    console.log(this.selectedPago);
+  }
 }

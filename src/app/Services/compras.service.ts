@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DiscoDuro } from '../Classes/discoDuro';
+import { Producto } from '../Classes/Producto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +27,21 @@ export class ComprasService {
     return this.http.get('http://127.0.0.1:8000/api/parametros/marca');
   }
 
-  comprarObjetos(discosDuros: DiscoDuro[]){
-    return this.http.post('http://127.0.0.1:8000/api/comprar', discosDuros);
+  revisarCompra(codigo: any){
+    return this.http.get('http://127.0.0.1:8000/api/compras?codigo=' + codigo);
+  }
+
+  comprarObjetos(discosDuros: Producto[]){
+    const discosIds = discosDuros.map(disco => disco.id);
+    return this.http.post('http://127.0.0.1:8000/api/comprar', discosIds);
   }
 
   getEstados(){
     return this.http.get('http://127.0.0.1:8000/api/parametros/estado');
+  }
+
+  getPerifericos(){
+    return this.http.get('http://127.0.0.1:8000/api/perifericos');
   }
 
   getDiscosDuros(page:any, disponibilidad: string[], estado: string[], tamano: string[], marca: string[], sistemaArchivos: string[]){

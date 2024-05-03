@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PreviewCompraComponent } from './Componentes/preview-compra/preview-compra.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DiscoDuro } from './Classes/discoDuro';
+import { Producto } from './Classes/Producto';
 
 @Component({
   selector: 'app-root',
@@ -19,23 +19,35 @@ export class AppComponent {
   title = 'TesisFrontEnd3';
 
   expandedCarrito = false;
-  discosDuros: DiscoDuro[] = [];
+  productos: Producto[] = [];
+  costoTotal: number = 0;
+  childComponent: any;
 
   abrirCarrito(){
     this.expandedCarrito = !this.expandedCarrito;
   }
 
-  actualizarCarritoDiscosDuros(discosDuros: DiscoDuro[]){
-    this.discosDuros = discosDuros;
+  actualizarCarritoDiscosDuros(productos: Producto[]){
+    this.productos = productos;
+    this.costoTotal = 0;
+    this.productos.forEach((producto) => {
+      this.costoTotal += producto.precio;
+    });
+  }
+
+  recargarPagina(){
+    this.childComponent.reload();
   }
 
   subscribeToChildEvent(componentRef: any){
-    componentRef.agregarAlCarroOutput.subscribe((res: DiscoDuro) => {
+    this.childComponent = componentRef;
+    componentRef.agregarAlCarroOutput.subscribe((res: Producto) => {
       this.expandedCarrito = true;
-      if(!this.discosDuros.some(function(disco){
-        return disco.id === res.id;
+      if(!this.productos.some(function(producto){
+        return ((producto.id === res.id) && !(producto.tipoProducto != res.tipoProducto));
       })){
-        this.discosDuros.push(res);
+        this.costoTotal += res.precio;
+        this.productos.push(res);
       }
     });
   }

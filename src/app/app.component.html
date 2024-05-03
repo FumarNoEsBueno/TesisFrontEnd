@@ -1,7 +1,12 @@
+
+<div [style]="{ marginLeft:'11%',marginRight:'11%' }">
 <app-nav-bar (abrirCarritoOutput)="abrirCarrito()"></app-nav-bar>
 <router-outlet (activate)="subscribeToChildEvent($event)"></router-outlet>
 <app-preview-compra
   (discoDuroOutput)="actualizarCarritoDiscosDuros($event)"
   (cerrarCarrito)="abrirCarrito()"
+  (recargarPagina)="recargarPagina()"
   [abierto]="expandedCarrito"
-  [discosDuros]="discosDuros"></app-preview-compra>
+  [costoTotal]="costoTotal"
+  [productos]="productos"></app-preview-compra>
+</div>

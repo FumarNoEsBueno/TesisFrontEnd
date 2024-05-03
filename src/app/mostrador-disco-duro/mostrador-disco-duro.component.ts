@@ -4,10 +4,10 @@ import { CardModule } from 'primeng/card';
 import { ComprasService } from '../Services/compras.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
-import { PreviewDiscoDuroComponent } from '../Componentes/preview-disco-duro/preview-disco-duro.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { DiscoDuro } from '../Classes/discoDuro';
+import { Producto } from '../Classes/Producto';
+import { MostradorProductoComponent } from '../Componentes/mostrador-producto/mostrador-producto.component';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { DiscoDuro } from '../Classes/discoDuro';
   imports: [CheckboxModule,
     ProgressSpinnerModule,
     FormsModule,
-    PreviewDiscoDuroComponent,
+    MostradorProductoComponent,
     PaginatorModule,
     CardModule,
     AccordionModule],
@@ -25,7 +25,7 @@ import { DiscoDuro } from '../Classes/discoDuro';
 })
 export class MostradorDiscoDuroComponent {
 
-  @Output() agregarAlCarroOutput = new EventEmitter<DiscoDuro>();
+  @Output() agregarAlCarroOutput = new EventEmitter<Producto>();
 
   discosDuros: any;
 
@@ -117,11 +117,15 @@ export class MostradorDiscoDuroComponent {
       this.disponibilidades = res.filter((producto: any) => producto.disponibilidad_nombre !== 'Vendido');
     });
     this.comprasService.getDiscosDuros(this.page,[],[],[],[],[]).subscribe((res: any) =>{
-      this.discosDuros = res.data.map((item: any) => new DiscoDuro(item));
+      this.discosDuros = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
       this.loading = false;
     });
+  }
+
+  reload(){
+    this.onFilterChange();
   }
 
   onFilterChange(){
@@ -133,7 +137,7 @@ export class MostradorDiscoDuroComponent {
                                        this.marcasModel,
                                        this.sistemaArchivosModel).subscribe((res: any) =>{
 
-      this.discosDuros = res.data.map((item: any) => new DiscoDuro(item));
+      this.discosDuros = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
       this.loading = false;
@@ -149,14 +153,14 @@ export class MostradorDiscoDuroComponent {
                                        this.tamanosModel,
                                        this.marcasModel,
                                        this.sistemaArchivosModel).subscribe((res: any) =>{
-      this.discosDuros = res.data.map((item: any) => new DiscoDuro(item));
+      this.discosDuros = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
       this.loading = false;
     });
   }
 
-  agregarAlCarro(discoDuro: DiscoDuro){
+  agregarAlCarro(discoDuro: Producto){
     this.agregarAlCarroOutput.emit(discoDuro);
   }
 }
