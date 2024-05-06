@@ -13,12 +13,16 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { BadgeModule } from 'primeng/badge';
 import { Producto } from '../../Classes/Producto';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-preview-compra',
   standalone: true,
   imports: [SidebarModule,
     BadgeModule,
+    InputTextModule,
+    DropdownModule,
     TooltipModule,
     RadioButtonModule,
     FormsModule,
@@ -45,8 +49,13 @@ export class PreviewCompraComponent {
   @Output() discoDuroOutput = new EventEmitter<Producto[]>();
   @Output() recargarPagina = new EventEmitter<void>();
 
-  selectedPago: any[] = ["transferencia"];
-  selectedRetiro: any[] = ["retiro"];
+  ciudades: any[] = ["ciudad1",
+    "ciudad",
+    "ciudad1"];
+  selectedCiudad: any;
+  calleValue: string = "";
+  selectedPago: any = "transferencia";
+  selectedRetiro: any = 'retiro';
   finalizarCompraVisible = false;
   value: any;
   progresoCompra = 0;

@@ -31,31 +31,75 @@
                 <p-button label="Confirmar carrito" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
         ></ng-template>
     </p-stepperPanel>
-    <p-stepperPanel header="Retiro">
+    <p-stepperPanel header="Entrega">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-          <span>Metodo de retiro:</span>
+          <span>Metodo de entrega:</span>
           <div class="flex justify-content-between">
-            <p-checkbox label="Retiro en tienda"
+            <p-radioButton
               name="retiro"
               value="retiro"
-              [(ngModel)]="selectedRetiro"></p-checkbox>
-            <p-checkbox label="Despacho a domicilio"
+              autofocus="true"
+              [(ngModel)]="selectedRetiro"
+              inputId="1"></p-radioButton>
+            <label for="1" class="ml-2">Retiro en tienda</label>
+            <p-radioButton
+              name="descacho"
               value="despacho"
-              [disabled]="true"
               [style]="{ 'margin-left': '30px' }"
-              [(ngModel)]="selectedRetiro"></p-checkbox>
+              [(ngModel)]="selectedRetiro"
+              inputId="despacho"></p-radioButton>
+            <label for="despacho" class="ml-2">Despacho a domicilio</label>
           </div>
           <p-scrollPanel [style]="{ width: '100%', height: '250px' }">
+            @if(selectedRetiro == 'despacho'){
+              <br/>
+              <span>Dirección de despacho:</span>
+              <div [style]="{ 'margin-top': '5px' }" class="flex justify-content-between">
+                <span style="margin-right: 1%;">Región:</span>
+              </div>
+              <div [style]="{ 'margin-top': '5px' }" class="flex justify-content-between">
+                <span style="margin-right: 1%;">Ciudad:</span>
+                <p-dropdown
+                  [options]="ciudades"
+                  [(ngModel)]="selectedCiudad"
+                  [virtualScrollItemSize]="2"
+                  placeholder="Selecione ciudad" />
+              </div>
+              <div [style]="{ 'margin-top': '5px' }" class="flex justify-content-between">
+                <span style="margin-right: 1%;">Calle y numero:</span>
+                <input
+                  type="text"
+                  pInputText
+                  [disabled]="selectedCiudad == null"
+                  [(ngModel)]="calleValue" />
+              </div>
+            }
           </p-scrollPanel>
           <div class="flex justify-content-between">
               <p-button [style]="{ 'float': 'left' }" label="Atras" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-              <p-button [style]="{ 'float': 'right' }" label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+            @if(selectedRetiro != 'despacho'){
+              <p-button
+                [style]="{ 'float': 'right' }"
+                label="Siguiente"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (onClick)="nextCallback.emit()" />
+              }
+            @if(selectedRetiro == 'despacho'){
+              <p-button
+                [style]="{ 'float': 'right' }"
+                label="Siguiente"
+                [disabled]="calleValue.length == 0"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (onClick)="nextCallback.emit()" />
+              }
           </div>
         </ng-template>
     </p-stepperPanel>
     <p-stepperPanel header="Pago">
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-        <span>Medio de pago:</span>
+        <span>Metodo de pago:</span>
         <div class="flex justify-content-between">
             <p-radioButton
               name="Transferencia"
@@ -77,12 +121,21 @@
               [disabled]="true"
               [style]="{ 'margin-left': '30px' }"
               [(ngModel)]="selectedPago"
-              inputId="ingredient3"></p-radioButton>
+              inputId="ingredient3"
+              pTooltip="Temporalmente no disponible"
+              ></p-radioButton>
             <label for="ingredient3" pTooltip="Temporalmente no disponible" class="ml-2">WebPay</label>
         </div>
           <p-scrollPanel [style]="{ width: '100%', height: '250px' }">
+            <div [style]="{ 'margin-top': '5px' }">
+            @if(selectedPago == "transferencia"){
+              <span>Pagar con transferencia</span>
+            }
+            @if(selectedPago == "tienda"){
+              <span>Pa pago en tienda</span>
+            }
+            </div>
           </p-scrollPanel>
-
         <div style="text-align: right;" class="flex pt-4 justify-content-end">
           <p-button [style]="{ 'float': 'left' }" label="Atras" icon="pi pi-arrow-left" iconPos="left" (onClick)="prevCallback.emit()" />
             <p-button [style]="{ 'float': 'right' }" label="Finalizar" icon="pi pi-flag" iconPos="right" (onClick)="finalizarCompra()"/></div>

@@ -31,9 +31,19 @@ export class ComprasService {
     return this.http.get('http://127.0.0.1:8000/api/compras?codigo=' + codigo);
   }
 
-  comprarObjetos(discosDuros: Producto[]){
-    const discosIds = discosDuros.map(disco => disco.id);
-    return this.http.post('http://127.0.0.1:8000/api/comprar', discosIds);
+  comprarObjetos(productos: Producto[]){
+    let discosIds: any[] = [];
+    let perifericosIds: any[] = [];
+    let ramsIds: any[] = [];
+
+    productos.forEach((producto) => {
+      if(producto.tipoProducto == "disco") discosIds.push(producto.id);
+      if(producto.tipoProducto == "periferico") perifericosIds.push(producto.id);
+      if(producto.tipoProducto == "rams") ramsIds.push(producto.id);
+    });
+    let body = {discos: discosIds, perifericos: perifericosIds, rams: ramsIds};
+    console.log(body);
+    return this.http.post('http://127.0.0.1:8000/api/comprar', body);
   }
 
   getEstados(){

@@ -9,7 +9,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Producto } from '../Classes/Producto';
 import { MostradorProductoComponent } from '../Componentes/mostrador-producto/mostrador-producto.component';
 
-
 @Component({
   selector: 'app-mostrador-disco-duro',
   standalone: true,
