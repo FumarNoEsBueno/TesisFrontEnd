@@ -4,6 +4,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PreviewCompraComponent } from './Componentes/preview-compra/preview-compra.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Producto } from './Classes/Producto';
+import {Router} from "@angular/router"
+import { LoginServiceService } from './Services/login-service.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,14 @@ import { Producto } from './Classes/Producto';
     styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'TesisFrontEnd3';
+
+  constructor(private loginService: LoginServiceService,
+              private router: Router) { }
+
+  title = 'TesisFrontEnd';
+
+  email: string = "default";
+  password: string = "default";
 
   expandedCarrito = false;
   productos: Producto[] = [];
@@ -41,14 +50,44 @@ export class AppComponent {
 
   subscribeToChildEvent(componentRef: any){
     this.childComponent = componentRef;
-    componentRef.agregarAlCarroOutput.subscribe((res: Producto) => {
-      this.expandedCarrito = true;
-      if(!this.productos.some(function(producto){
-        return ((producto.id === res.id) && !(producto.tipoProducto != res.tipoProducto));
-      })){
-        this.costoTotal += res.precio;
-        this.productos.push(res);
-      }
-    });
+    if(componentRef.agregarAlCarroOutput != null){
+      componentRef.agregarAlCarroOutput.subscribe((res: Producto) => {
+        this.expandedCarrito = true;
+        if(!this.productos.some(function(producto){
+          return ((producto.id === res.id) && !(producto.tipoProducto != res.tipoProducto));
+        })){
+          this.costoTotal += res.precio;
+          this.productos.push(res);
+        }
+      });
+    }
+
+    if(componentRef.requestLogin != null){
+      this.login();
+    }
+
+    if(componentRef.actualizarLoginData != null){
+      componentRef.actualizarLoginData.subscribe((res: any) => {
+        this.email = res.email;
+        this.password = res.password;
+        this.login();
+      });
+    }
+  }
+
+  login(){
+
+      let credentials = {
+        email: this.email,
+        password: this.password
+      };
+
+      this.loginService.checkLogin(credentials).subscribe((res: any) => {
+        if(res){
+          this.router.navigate(['/profile'])
+        }else{
+          this.router.navigate(['/login'])
+        }
+      });
   }
 }

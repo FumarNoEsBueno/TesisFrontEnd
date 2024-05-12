@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
+import {Router} from "@angular/router"
+import { LoginServiceService } from '../Services/login-service.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,6 +13,10 @@ import { MenubarModule } from 'primeng/menubar';
 })
 export class NavBarComponent {
 
+  constructor(private loginService: LoginServiceService,private router: Router) { }
+
+  @Input() email: any;
+  @Input() password: any;
   @Output() abrirCarritoOutput = new EventEmitter<void>();
 
   items = [
@@ -20,6 +26,22 @@ export class NavBarComponent {
       {label: 'Perifericos',  routerLink: ['./periferico']},
       {label: 'Seguimiento de compra',  routerLink: ['./seguimiento']},
     ];
+
+    aLogin(){
+
+      let credentials = {
+        email: this.email,
+        password: this.password
+      };
+
+      this.loginService.checkLogin(credentials).subscribe((res: any) => {
+        if(res){
+          this.router.navigate(['/profile'])
+        }else{
+          this.router.navigate(['/login'])
+        }
+      });
+    }
 
     abrirCarrito(){
       this.abrirCarritoOutput.emit();

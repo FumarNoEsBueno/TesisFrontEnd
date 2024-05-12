@@ -7,28 +7,30 @@ import { Producto } from '../Classes/Producto';
 })
 export class ComprasService {
 
+  url: string = "http://127.0.0.1:8000/api/";
+
   constructor(
     private http:HttpClient
   ) { }
 
   getDisponibilidad(){
-    return this.http.get('http://127.0.0.1:8000/api/parametros/disponibilidad');
+    return this.http.get(this.url + 'parametros/disponibilidad');
   }
 
   getSistemaArchivos(){
-    return this.http.get('http://127.0.0.1:8000/api/parametros/sistema-archivos');
+    return this.http.get(this.url + 'parametros/sistema-archivos');
   }
 
   getTamano(){
-    return this.http.get('http://127.0.0.1:8000/api/parametros/tamano');
+    return this.http.get(this.url + 'parametros/tamano');
   }
 
   getMarcas(){
-    return this.http.get('http://127.0.0.1:8000/api/parametros/marca');
+    return this.http.get(this.url + 'parametros/marca');
   }
 
   revisarCompra(codigo: any){
-    return this.http.get('http://127.0.0.1:8000/api/compras?codigo=' + codigo);
+    return this.http.get(this.url + 'compras?codigo=' + codigo);
   }
 
   comprarObjetos(productos: Producto[]){
@@ -43,19 +45,19 @@ export class ComprasService {
     });
     let body = {discos: discosIds, perifericos: perifericosIds, rams: ramsIds};
     console.log(body);
-    return this.http.post('http://127.0.0.1:8000/api/comprar', body);
+    return this.http.post(this.url + 'comprar', body);
   }
 
   getEstados(){
-    return this.http.get('http://127.0.0.1:8000/api/parametros/estado');
+    return this.http.get(this.url + 'parametros/estado');
   }
 
   getPerifericos(){
-    return this.http.get('http://127.0.0.1:8000/api/perifericos');
+    return this.http.get(this.url + 'perifericos');
   }
 
   getDiscosDuros(page:any, disponibilidad: string[], estado: string[], tamano: string[], marca: string[], sistemaArchivos: string[]){
-    let url = 'http://127.0.0.1:8000/api/discosDuros?page='+page;
+    let url = this.url + 'discosDuros?page='+page;
 
     disponibilidad.forEach((e: String) => {
       url = url + '&disponibilidad[]='+e;

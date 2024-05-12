@@ -4,6 +4,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { MostradorRamComponent } from './mostrador-ram/mostrador-ram.component';
 import { MostradorPerifericoComponent } from './mostrador-periferico/mostrador-periferico.component';
 import { MostradorSeguimientoComponent } from './mostrador-seguimiento/mostrador-seguimiento.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [{
   path: '',
@@ -25,5 +27,13 @@ export const routes: Routes = [{
   path: 'disco-duro',
   component: MostradorDiscoDuroComponent,
   title: 'MidTech: Discos duros'
+},{
+  path: 'login',
+  component: LoginComponent,
+  title: 'MidTech: login'
+},{
+  path: 'profile',
+  component: ProfileComponent,
+  title: 'MidTech: perfil'
 },
 ];

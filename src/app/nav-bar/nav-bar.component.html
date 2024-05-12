@@ -1,4 +1,10 @@
 <p-menubar [model]="items">
-  <p-button icon="pi pi-shopping-cart" (click)="abrirCarrito()">
-  </p-button>
+  <div style="display: flex; justify-content: space-between;">
+    <p-button icon="pi pi-user" (click)="aLogin()">
+    </p-button>
+    <div style="margin-left: 5%;">
+    <p-button icon="pi pi-shopping-cart" (click)="abrirCarrito()">
+    </p-button>
+  </div>
+  </div>
 </p-menubar>
