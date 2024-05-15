@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PreviewCompraComponent } from './Componentes/preview-compra/preview-compra.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Producto } from './Classes/Producto';
 import {Router} from "@angular/router"
 import { LoginServiceService } from './Services/login-service.service';
@@ -20,13 +20,12 @@ import { LoginServiceService } from './Services/login-service.service';
 export class AppComponent {
 
   constructor(private loginService: LoginServiceService,
+              private http:HttpClient,
               private router: Router) { }
 
   title = 'TesisFrontEnd';
 
-  email: string = "default";
-  password: string = "default";
-
+  sessionToken: any;
   expandedCarrito = false;
   productos: Producto[] = [];
   costoTotal: number = 0;
@@ -63,31 +62,7 @@ export class AppComponent {
     }
 
     if(componentRef.requestLogin != null){
-      this.login();
-    }
-
-    if(componentRef.actualizarLoginData != null){
-      componentRef.actualizarLoginData.subscribe((res: any) => {
-        this.email = res.email;
-        this.password = res.password;
-        this.login();
-      });
     }
   }
 
-  login(){
-
-      let credentials = {
-        email: this.email,
-        password: this.password
-      };
-
-      this.loginService.checkLogin(credentials).subscribe((res: any) => {
-        if(res){
-          this.router.navigate(['/profile'])
-        }else{
-          this.router.navigate(['/login'])
-        }
-      });
-  }
 }

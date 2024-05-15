@@ -15,6 +15,8 @@ import { BadgeModule } from 'primeng/badge';
 import { Producto } from '../../Classes/Producto';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { LoginServiceService } from '../../Services/login-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preview-compra',
@@ -39,7 +41,9 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class PreviewCompraComponent {
 
-  constructor(private compraService: ComprasService){}
+  constructor(private loginService: LoginServiceService,
+              private router: Router,
+              private compraService: ComprasService){}
 
   @Input() abierto: any;
   @Input() costoTotal: any;
@@ -63,26 +67,32 @@ export class PreviewCompraComponent {
   detallesCompra: any;
 
   continuarCompra(){
-    this.progresoCompra = 0;
-    this.pasoCompra = 0;
-    this.finalizarCompraVisible = true;
+    this.loginService.checkLogin().subscribe({
+      next: () => {
+          this.progresoCompra = 0;
+          this.pasoCompra = 0;
+          this.finalizarCompraVisible = true;
+      },
+      error: () => {
+        this.router.navigate(['/login'])
+    }
+    });
     this.cerrarSidebar();
   }
 
   finalizarCompra(){
     this.progresoCompra = 1;
-    this.compraService.comprarObjetos(this.productos).subscribe({
+    this.compraService.comprarObjetos(this.productos, null, null, null).subscribe({
       next: (res: any) => {
+        console.log(res);
         this.progresoCompra = 2;
         this.productos = [];
         this.discoDuroOutput.emit([]);
         this.recargarPagina.emit();
         this.detallesCompra = res;
-        console.log(res);
       },
       error: (err: any) => {
         this.progresoCompra = 3;
-        console.log(err);
       }
     });
   }
@@ -97,7 +107,5 @@ export class PreviewCompraComponent {
   }
 
   filtroPago(event: any){
-    console.log(event);
-    console.log(this.selectedPago);
   }
 }

@@ -6,6 +6,8 @@ import { MostradorPerifericoComponent } from './mostrador-periferico/mostrador-p
 import { MostradorSeguimientoComponent } from './mostrador-seguimiento/mostrador-seguimiento.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
+import { RecoverComponent } from './recover/recover.component';
 
 export const routes: Routes = [{
   path: '',
@@ -35,5 +37,13 @@ export const routes: Routes = [{
   path: 'profile',
   component: ProfileComponent,
   title: 'MidTech: perfil'
+},{
+  path: 'register',
+  component: RegisterComponent,
+  title: 'MidTech: register'
+},{
+  path: 'recover',
+  component: RecoverComponent,
+  title: 'MidTech: recover'
 },
 ];

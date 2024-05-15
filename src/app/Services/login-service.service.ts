@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -12,7 +12,18 @@ export class LoginServiceService {
     private http:HttpClient
   ) { }
 
-  checkLogin(credentials: any){
+  login(credentials: any){
     return this.http.post(this.url + 'perfil', credentials);
+  }
+
+  checkLogin(){
+    const token = this.getToken();
+    const headers = new HttpHeaders().set("Authorization","Bearer " + token);
+    return this.http.post(this.url + 'testeo',null , { headers });
+  }
+
+  getToken(){
+    let token = localStorage.getItem( 'token' );
+    return token;
   }
 }

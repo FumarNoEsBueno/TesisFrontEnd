@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { LoginServiceService } from '../Services/login-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,9 +11,18 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ProfileComponent {
 
+  constructor(private loginService: LoginServiceService,private router: Router) { }
+
   @Output() requestLogin = new EventEmitter<void>();
 
   ngOnInit(){
-    this.requestLogin.emit();
+    this.loginService.checkLogin().subscribe({
+      next: () => {
+        this.router.navigate(['/profile'])
+      },
+      error: () => {
+        this.router.navigate(['/login'])
+      }
+    });
   }
 }

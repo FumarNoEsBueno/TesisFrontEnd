@@ -1,1 +1,24 @@
-<p>recover works!</p>
+<div style="margin-top: 3%;">
+  <div style="width: 30%;  margin: auto;">
+    <p-card header="Recuperar contraseña">
+      <div>
+        <label for="email">Correo</label>
+      </div>
+      <div class="flex flex-column gap-2">
+        <input
+        pInputText
+        id="email"
+        class="p-inputtext-sm"
+        aria-describedby="email-help"
+        [(ngModel)]="email" />
+      </div>
+      <div style="margin-top: 3%;">
+        <p-button size="small" (onClick)="recover()">
+          recover
+        </p-button>
+      </div>
+      <p style="font-size: 12px">¿Ya tienes cuenta? <a href="/login"> iniciar sesión </a></p>
+      <p style="font-size: 12px">¿No estas registrado? <a href="/register"> crear cuenta </a></p>
+    </p-card>
+  </div>
+</div>

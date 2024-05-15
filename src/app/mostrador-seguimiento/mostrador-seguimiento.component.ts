@@ -34,7 +34,6 @@ export class MostradorSeguimientoComponent {
     this.compraService.revisarCompra(this.codigo).subscribe({
       next: (res: any) => {
         this.compras = res.map((item: any) => new Producto(item));
-        console.log(this.compras);
       },
       error: (err) => {
       }

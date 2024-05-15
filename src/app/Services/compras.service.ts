@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Producto } from '../Classes/Producto';
 
 @Injectable({
@@ -33,7 +33,10 @@ export class ComprasService {
     return this.http.get(this.url + 'compras?codigo=' + codigo);
   }
 
-  comprarObjetos(productos: Producto[]){
+  comprarObjetos(productos: Producto[],
+                metodoPago: any,
+                metodoDespacho: any,
+                direccion: any){
     let discosIds: any[] = [];
     let perifericosIds: any[] = [];
     let ramsIds: any[] = [];
@@ -43,9 +46,12 @@ export class ComprasService {
       if(producto.tipoProducto == "periferico") perifericosIds.push(producto.id);
       if(producto.tipoProducto == "rams") ramsIds.push(producto.id);
     });
-    let body = {discos: discosIds, perifericos: perifericosIds, rams: ramsIds};
-    console.log(body);
-    return this.http.post(this.url + 'comprar', body);
+    let body = {discos: discosIds,
+        perifericos: perifericosIds,
+        rams: ramsIds};
+    let token = localStorage.getItem( 'token' );
+    const headers = new HttpHeaders().set("Authorization","Bearer " + token);
+    return this.http.post(this.url + 'comprar', body, { headers });
   }
 
   getEstados(){

@@ -67,7 +67,6 @@ export class MostradorPerifericoComponent {
         this.rows = res.per_page;
         this.totalRecords = res.total;
         this.loading = false;
-        console.log(res);
       },
       error: (err) => {
       }

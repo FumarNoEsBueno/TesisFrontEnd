@@ -1,7 +1,5 @@
 <div [style]="{ marginLeft:'11%',marginRight:'11%' }">
   <app-nav-bar
-    [email]="email"
-    [password]="password"
     (abrirCarritoOutput)="abrirCarrito()">
   </app-nav-bar>
   <router-outlet (activate)="subscribeToChildEvent($event)"></router-outlet>

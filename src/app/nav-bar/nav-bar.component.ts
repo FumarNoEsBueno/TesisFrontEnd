@@ -15,8 +15,6 @@ export class NavBarComponent {
 
   constructor(private loginService: LoginServiceService,private router: Router) { }
 
-  @Input() email: any;
-  @Input() password: any;
   @Output() abrirCarritoOutput = new EventEmitter<void>();
 
   items = [
@@ -24,20 +22,15 @@ export class NavBarComponent {
       {label: 'Discos duros',  routerLink: ['./disco-duro']},
       {label: 'Memorias ram',  routerLink: ['./ram']},
       {label: 'Perifericos',  routerLink: ['./periferico']},
-      {label: 'Seguimiento de compra',  routerLink: ['./seguimiento']},
+      //{label: 'Seguimiento de compra',  routerLink: ['./seguimiento']},
     ];
 
     aLogin(){
-
-      let credentials = {
-        email: this.email,
-        password: this.password
-      };
-
-      this.loginService.checkLogin(credentials).subscribe((res: any) => {
-        if(res){
-          this.router.navigate(['/profile'])
-        }else{
+      this.loginService.checkLogin().subscribe({
+        next: (res: any) => {
+            this.router.navigate(['/profile'])
+        },
+        error: (err: any) => {
           this.router.navigate(['/login'])
         }
       });

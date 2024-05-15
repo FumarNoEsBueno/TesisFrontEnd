@@ -1,20 +1,28 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
-import { FloatLabelModule } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { LoginServiceService } from '../Services/login-service.service';
+import { Router } from '@angular/router';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ButtonModule, FormsModule, FloatLabelModule, CardModule],
+  imports: [MessagesModule, InputTextModule, ButtonModule, FormsModule, CardModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  constructor(private loginService: LoginServiceService,
+              private router: Router) { }
+
   email: any;
   password: any;
-  @Output() actualizarLoginData = new EventEmitter<any>();
+  messages: Message[] = [];
 
   login(){
       let credentials = {
@@ -22,6 +30,18 @@ export class LoginComponent {
         password: this.password
       };
 
-      this.actualizarLoginData.emit(credentials);
+      this.loginService.login(credentials).subscribe({
+        next: (res: any) => {
+          if(res){
+            let token = res;
+            localStorage.setItem('token', token);
+            this.router.navigate(['/profile'])
+          }
+        },
+        error: (err: any) => {
+           this.messages = [{ severity: 'error', detail: 'Credenciales incorrectas' }];
+           this.password = "";
+        }
+      });
   }
 }
