@@ -1,10 +1,13 @@
 <p-menubar [model]="items">
-  <div style="display: flex; justify-content: space-between;">
-    <p-button icon="pi pi-user" (click)="aLogin()">
-    </p-button>
-    <div style="margin-left: 5%;">
+  <div style="display: flex">
+    <div style="margin-right: 2%;">
     <p-button icon="pi pi-shopping-cart" (click)="abrirCarrito()">
     </p-button>
-  </div>
+    </div>
+      <p-splitButton
+        label="Perfil"
+        icon="pi pi-user"
+        (onClick)="aLogin()"
+        [model]="opciones" />
   </div>
 </p-menubar>

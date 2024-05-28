@@ -1,0 +1,9 @@
+
+<p-radioButton
+  name="descacho"
+  [value]="direccion.id"
+  [style]="{ 'margin-left': '30px' }"
+  [(ngModel)]="selectedDireccion"
+  (onClick)="onSelectedDireccionChange()"
+  inputId="despacho"></p-radioButton>
+<label for="despacho" class="ml-2">{{direccion.direccion_nombre}}, {{direccion.ciudad_nombre}}, {{direccion.provincia_nombre}}, {{direccion.region_nombre}}</label>

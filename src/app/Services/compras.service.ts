@@ -48,10 +48,20 @@ export class ComprasService {
     });
     let body = {discos: discosIds,
         perifericos: perifericosIds,
-        rams: ramsIds};
+        rams: ramsIds,
+        metodoPago: metodoPago,
+        metodoDespacho: metodoDespacho,
+        direccionId: direccion
+    };
     let token = localStorage.getItem( 'token' );
     const headers = new HttpHeaders().set("Authorization","Bearer " + token);
     return this.http.post(this.url + 'comprar', body, { headers });
+  }
+
+  getHistorialCompras(){
+    let token = localStorage.getItem( 'token' );
+    const headers = new HttpHeaders().set("Authorization","Bearer " + token);
+    return this.http.post(this.url + 'get_compras_by_user_id', null, { headers });
   }
 
   getEstados(){

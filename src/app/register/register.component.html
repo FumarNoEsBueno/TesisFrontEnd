@@ -1,6 +1,23 @@
 <div style="margin-top: 3%;">
   <div style="width: 30%;  margin: auto;">
     <p-card header="Crear cuenta">
+      <div style="margin-top: 3%;">
+        <p-messages
+          [(value)]="messages"
+          [enableService]="false"
+          [closable]="true" />
+      </div>
+      <div>
+        <label for="nombre">Nombre</label>
+      </div>
+      <div class="flex flex-column gap-2">
+        <input
+        pInputText
+        id="name"
+        class="p-inputtext-sm"
+        aria-describedby="name-help"
+        [(ngModel)]="name"/>
+      </div>
       <div>
         <label for="email">Correo</label>
       </div>
@@ -25,9 +42,21 @@
           aria-describedby="password-help"
           [(ngModel)]="password" />
         </div>
+        <div>
+          <label for="passwordRepeat">Repetir contraseña</label>
+        </div>
+        <div class="flex flex-column gap-2">
+          <input
+          pInputText
+          class="p-inputtext-sm"
+          id="passwordRepeat"
+          type="password"
+          aria-describedby="password-help"
+          [(ngModel)]="passwordRepeat" />
+        </div>
       </div>
       <div style="margin-top: 3%;">
-        <p-button size="small" (onClick)="register()">
+        <p-button size="small" [disabled]="password != passwordRepeat || password == ''"(onClick)="register()">
           register
         </p-button>
       </div>

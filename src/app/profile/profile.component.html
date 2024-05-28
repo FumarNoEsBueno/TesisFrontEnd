@@ -1,1 +1,34 @@
-<p>Historial de compras</p>
+
+<div style="display: flex;">
+  <div style="margin-right: 1%;" [style]="{ width: '20%' }">
+    <p-card header="opciones">
+      <div><span style="cursor: pointer;" (click)="estado = 0">Historial de compras</span></div>
+      <div><span style="cursor: pointer;" (click)="estado = 1">Gestion de perfil</span></div>
+      <span></span>
+    </p-card>
+  </div>
+
+  <div style="display: flex;">
+    @switch (estado) {
+    @case (0) {
+    <div>
+      <h3>Historial de compras</h3>
+      @for (compra of listaCompras; track compra) {
+      <app-mostrador-historial [compra]="compra"/>
+        }
+    </div>
+  }
+    @case (1) {
+  <div>
+      <h3>Gestion de perfil</h3>
+    <div>
+      <p>Gestion de contraseña</p>
+    </div>
+    <div>
+      <p>Gestion de direcciones</p>
+    </div>
+    </div>
+  }
+  }
+  </div>
+</div>

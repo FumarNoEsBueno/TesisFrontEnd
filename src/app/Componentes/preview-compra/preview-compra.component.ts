@@ -17,12 +17,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginServiceService } from '../../Services/login-service.service';
 import { Router } from '@angular/router';
+import { MostradorDireccionComponent } from '../mostrador-direccion/mostrador-direccion.component';
 
 @Component({
   selector: 'app-preview-compra',
   standalone: true,
   imports: [SidebarModule,
     BadgeModule,
+    MostradorDireccionComponent,
     InputTextModule,
     DropdownModule,
     TooltipModule,
@@ -65,6 +67,12 @@ export class PreviewCompraComponent {
   progresoCompra = 0;
   pasoCompra = 0;
   detallesCompra: any;
+  direcciones: any[] = [];
+  selectedDireccion: any;
+
+  updateDireccion(event: any){
+    this.selectedDireccion = event;
+  }
 
   continuarCompra(){
     this.loginService.checkLogin().subscribe({
@@ -72,17 +80,29 @@ export class PreviewCompraComponent {
           this.progresoCompra = 0;
           this.pasoCompra = 0;
           this.finalizarCompraVisible = true;
+          this.getDirecciones();
       },
       error: () => {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/home'])
     }
     });
     this.cerrarSidebar();
   }
 
+  getDirecciones(){
+    this.loginService.getDirecciones().subscribe({
+      next: (res: any) => {
+        this.direcciones = res;
+      },
+      error: () => {
+        this.router.navigate(['/login'])
+    }
+    });
+  }
+
   finalizarCompra(){
     this.progresoCompra = 1;
-    this.compraService.comprarObjetos(this.productos, null, null, null).subscribe({
+    this.compraService.comprarObjetos(this.productos, this.selectedPago, this.selectedRetiro, this.selectedDireccion).subscribe({
       next: (res: any) => {
         console.log(res);
         this.progresoCompra = 2;

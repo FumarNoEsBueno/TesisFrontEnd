@@ -32,11 +32,9 @@ export class LoginComponent {
 
       this.loginService.login(credentials).subscribe({
         next: (res: any) => {
-          if(res){
-            let token = res;
-            localStorage.setItem('token', token);
-            this.router.navigate(['/profile'])
-          }
+          let token = res;
+          localStorage.setItem('token', token);
+          this.router.navigate(['/profile'])
         },
         error: (err: any) => {
            this.messages = [{ severity: 'error', detail: 'Credenciales incorrectas' }];
