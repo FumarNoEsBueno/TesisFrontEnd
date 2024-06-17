@@ -16,12 +16,17 @@ import { Producto } from '../../Classes/Producto';
 export class MostradorHistorialComponent {
 
   @Input() compra: any;
-  discos: Producto[] = [];
+  producto: Producto[] = [];
 
   ngOnInit(){
     this.compra.discos.forEach((disco: any) => {
-      this.discos.push(new Producto(disco));
+      this.producto.push(new Producto(disco));
     });
-    console.log(this.compra);
+    this.compra.perifericos.forEach((periferico: any) => {
+      this.producto.push(new Producto(periferico));
+    });
+    this.compra.rams.forEach((ram: any) => {
+      this.producto.push(new Producto(ram));
+    });
   }
 }

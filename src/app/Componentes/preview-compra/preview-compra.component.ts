@@ -102,9 +102,12 @@ export class PreviewCompraComponent {
 
   finalizarCompra(){
     this.progresoCompra = 1;
-    this.compraService.comprarObjetos(this.productos, this.selectedPago, this.selectedRetiro, this.selectedDireccion).subscribe({
+    this.compraService.comprarObjetos(this.productos,
+      this.selectedPago,
+      this.selectedRetiro,
+      this.selectedDireccion)
+      .subscribe({
       next: (res: any) => {
-        console.log(res);
         this.progresoCompra = 2;
         this.productos = [];
         this.discoDuroOutput.emit([]);

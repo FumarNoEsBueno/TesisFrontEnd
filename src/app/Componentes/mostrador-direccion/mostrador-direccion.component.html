@@ -1,4 +1,5 @@
-
+<div>
+@if(seleccionable){
 <p-radioButton
   name="descacho"
   [value]="direccion.id"
@@ -6,4 +7,8 @@
   [(ngModel)]="selectedDireccion"
   (onClick)="onSelectedDireccionChange()"
   inputId="despacho"></p-radioButton>
+}@else{
+<p-button size="small" label="eliminar" (onClick)="eliminar()"/>
+}
 <label for="despacho" class="ml-2">{{direccion.direccion_nombre}}, {{direccion.ciudad_nombre}}, {{direccion.provincia_nombre}}, {{direccion.region_nombre}}</label>
+</div>

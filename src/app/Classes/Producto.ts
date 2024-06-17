@@ -1,6 +1,7 @@
 export class Producto {
 
   id: any;
+
   tipoProducto: any;
   nombre: any;
   imagenUrl: any;
@@ -13,13 +14,30 @@ export class Producto {
   sistemaArchivos: any;
   tamano: any;
   tipo_entrada: any;
+  descuento: any;
 
   descripcion: any;
   tipo_periferico: any;
 
+  tipo_ram: any;
+  tamano_ram: any;
+  velocidad_ram: any;
+
   constructor(producto: any) {
 
     this.id = producto.id;
+    this.descuento = producto.descuento_id;
+
+    if(producto.ram_nombre != null){
+      this.tipoProducto = "ram";
+      this.nombre = producto.ram_nombre;
+      this.imagenUrl = producto.ram_foto;
+      this.precio = producto.ram_precio;
+      this.marca = producto.marca_nombre;
+      this.tipo_ram = producto.tipo_ram_nombre;
+      this.velocidad_ram = producto.velocidad_ram_velocidad;
+      this.tamano_ram = producto.tamano_ram_nombre;
+    }
 
     if(producto.periferico_nombre != null){
       this.tipoProducto = "periferico";

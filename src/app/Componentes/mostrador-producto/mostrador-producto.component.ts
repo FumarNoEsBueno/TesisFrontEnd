@@ -27,6 +27,7 @@ export class MostradorProductoComponent {
   visible = false;
 
   ngOnInit(){
+    console.log(this.producto);
   }
 
   anadirAlCarrito(){

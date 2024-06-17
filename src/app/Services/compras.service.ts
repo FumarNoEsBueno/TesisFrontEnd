@@ -21,6 +21,18 @@ export class ComprasService {
     return this.http.get(this.url + 'parametros/sistema-archivos');
   }
 
+  getTipoRam(){
+    return this.http.get(this.url + 'parametros/tipo_ram');
+  }
+
+  getVelocidadRam(){
+    return this.http.get(this.url + 'parametros/velocidad_ram');
+  }
+
+  getTamanoRam(){
+    return this.http.get(this.url + 'parametros/tamano_ram');
+  }
+
   getTamano(){
     return this.http.get(this.url + 'parametros/tamano');
   }
@@ -44,7 +56,7 @@ export class ComprasService {
     productos.forEach((producto) => {
       if(producto.tipoProducto == "disco") discosIds.push(producto.id);
       if(producto.tipoProducto == "periferico") perifericosIds.push(producto.id);
-      if(producto.tipoProducto == "rams") ramsIds.push(producto.id);
+      if(producto.tipoProducto == "ram") ramsIds.push(producto.id);
     });
     let body = {discos: discosIds,
         perifericos: perifericosIds,
@@ -68,11 +80,20 @@ export class ComprasService {
     return this.http.get(this.url + 'parametros/estado');
   }
 
+  getRams(){
+    return this.http.get(this.url + 'rams');
+  }
+
   getPerifericos(){
     return this.http.get(this.url + 'perifericos');
   }
 
-  getDiscosDuros(page:any, disponibilidad: string[], estado: string[], tamano: string[], marca: string[], sistemaArchivos: string[]){
+  getDiscosDuros(page:any,
+                 disponibilidad: string[],
+                 estado: string[],
+                 tamano: string[],
+                 marca: string[],
+                 sistemaArchivos: string[]){
     let url = this.url + 'discosDuros?page='+page;
 
     disponibilidad.forEach((e: String) => {

@@ -15,7 +15,7 @@
         </span><br>
     </div>
     <p-scrollPanel [style]="{ width: '100%', maxHeight: '250px' }">
-      @for (disco of discos; track disco.id) {
+      @for (disco of producto; track disco.id) {
       <app-mostrador-compra [producto]="disco" [eliminable]="false">
       </app-mostrador-compra>
       }
