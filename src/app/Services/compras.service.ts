@@ -52,15 +52,23 @@ export class ComprasService {
     let discosIds: any[] = [];
     let perifericosIds: any[] = [];
     let ramsIds: any[] = [];
+    let cablesId: any[] = [];
+    let cablesCantidad: any[] = [];
 
     productos.forEach((producto) => {
       if(producto.tipoProducto == "disco") discosIds.push(producto.id);
       if(producto.tipoProducto == "periferico") perifericosIds.push(producto.id);
       if(producto.tipoProducto == "ram") ramsIds.push(producto.id);
+      if(producto.tipoProducto == "cable"){
+        cablesId.push(producto.id);
+        cablesCantidad.push(producto.cantidad_seleccionada);
+      }
     });
     let body = {discos: discosIds,
         perifericos: perifericosIds,
         rams: ramsIds,
+        cablesId: cablesId,
+        cablesCantidad: cablesCantidad,
         metodoPago: metodoPago,
         metodoDespacho: metodoDespacho,
         direccionId: direccion
@@ -68,6 +76,18 @@ export class ComprasService {
     let token = localStorage.getItem( 'token' );
     const headers = new HttpHeaders().set("Authorization","Bearer " + token);
     return this.http.post(this.url + 'comprar', body, { headers });
+  }
+
+  createSolicitud(body: any){
+    let token = localStorage.getItem( 'token' );
+    const headers = new HttpHeaders().set("Authorization","Bearer " + token);
+    return this.http.post(this.url + 'create_recepcion', body, { headers });
+  }
+
+  getHistorialRecepcion(){
+    let token = localStorage.getItem( 'token' );
+    const headers = new HttpHeaders().set("Authorization","Bearer " + token);
+    return this.http.post(this.url + 'get_recepcion_paginated_by_user_id', null, { headers });
   }
 
   getHistorialCompras(){
@@ -80,12 +100,20 @@ export class ComprasService {
     return this.http.get(this.url + 'parametros/estado');
   }
 
-  getRams(){
-    return this.http.get(this.url + 'rams');
+  getMetodoDespacho(){
+    return this.http.get(this.url + 'parametros/despacho');
+  }
+
+  getCables(){
+    return this.http.get(this.url + 'cables');
   }
 
   getPerifericos(){
     return this.http.get(this.url + 'perifericos');
+  }
+
+  getRams(){
+    return this.http.get(this.url + 'rams');
   }
 
   getDiscosDuros(page:any,
@@ -93,7 +121,12 @@ export class ComprasService {
                  estado: string[],
                  tamano: string[],
                  marca: string[],
+                 precio: number[],
+                 capacidad: number[],
+                 esperanza: number[],
+                 horas: number[],
                  sistemaArchivos: string[]){
+
     let url = this.url + 'discosDuros?page='+page;
 
     disponibilidad.forEach((e: String) => {
@@ -108,9 +141,26 @@ export class ComprasService {
     marca.forEach((e: String) => {
       url = url + '&marca[]='+e;
     });
+    precio.forEach((e: number) => {
+      url = url + '&precio[]='+e;
+    });
+    capacidad.forEach((e: number) => {
+      url = url + '&capacidad[]='+e;
+    });
+    esperanza.forEach((e: number) => {
+      url = url + '&esperanza[]='+e;
+    });
+    horas.forEach((e: number) => {
+      url = url + '&horas[]='+e;
+    });
     sistemaArchivos.forEach((e: String) => {
       url = url + '&sistema_archivos[]='+e;
     });
     return this.http.get(url);
   }
+
+  getProductosNuevos(){
+    return this.http.get(this.url + 'get_productos_nuevos');
+  }
+
 }

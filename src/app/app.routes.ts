@@ -8,6 +8,11 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoverComponent } from './recover/recover.component';
+import { RecepcionResiduosComponent } from './recepcion-residuos/recepcion-residuos.component';
+import { HistorialComprasComponent } from './profile/historial-compras/historial-compras.component';
+import { HistorialRecepcionComponent } from './profile/historial-recepcion/historial-recepcion.component';
+import { GestionPerfilComponent } from './profile/gestion-perfil/gestion-perfil.component';
+import { MostradorCablesComponent } from './mostrador-cables/mostrador-cables.component';
 
 export const routes: Routes = [{
   path: '',
@@ -36,7 +41,32 @@ export const routes: Routes = [{
 },{
   path: 'profile',
   component: ProfileComponent,
-  title: 'MidTech: perfil'
+  title: 'MidTech: perfil',
+  children: [
+    {
+      path: 'historial',
+      title: 'MidTech: historial compras',
+      component: HistorialComprasComponent,  // child route component that the router renders
+    },
+    {
+      path: 'recepcion',
+      title: 'MidTech: historial recepcion',
+      component: HistorialRecepcionComponent,  // child route component that the router renders
+    },
+    {
+      path: 'direcciones',
+      title: 'MidTech: gestion de perfil',
+      component: GestionPerfilComponent,  // another child route component that the router renders
+    },
+  ],
+},{
+  path: 'cables',
+  component: MostradorCablesComponent,
+  title: 'MidTech: cables'
+},{
+  path: 'recepcion',
+  component: RecepcionResiduosComponent,
+  title: 'MidTech: recepción'
 },{
   path: 'register',
   component: RegisterComponent,

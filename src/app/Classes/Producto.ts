@@ -22,6 +22,10 @@ export class Producto {
   tipo_ram: any;
   tamano_ram: any;
   velocidad_ram: any;
+  capacidad: any;
+
+  cantidad: any;
+  cantidad_seleccionada: any;
 
   constructor(producto: any) {
 
@@ -37,6 +41,7 @@ export class Producto {
       this.tipo_ram = producto.tipo_ram_nombre;
       this.velocidad_ram = producto.velocidad_ram_velocidad;
       this.tamano_ram = producto.tamano_ram_nombre;
+      this.capacidad = producto.capacidad_ram_capacidad;
     }
 
     if(producto.periferico_nombre != null){
@@ -63,6 +68,19 @@ export class Producto {
       this.tipo_entrada = producto.tipo_entrada;
       this.tamano = producto.tamano_nombre;
     }
-  }
 
+    if(producto.cable_nombre != null){
+      this.tipoProducto = "cable";
+      this.cantidad = producto.cable_cantidad;
+      this.nombre = producto.cable_nombre;
+      this.precio = producto.cable_precio;
+      this.imagenUrl = producto.cable_foto;
+      this.marca = producto.marca_nombre;
+      this.tipo_entrada = producto.tipo_entrada_nombre;
+      this.cantidad_seleccionada = 0;
+      if(producto.pivot != null){
+        this.cantidad_seleccionada = producto.pivot.compra_cable_cantidad;
+      }
+    }
+  }
 }

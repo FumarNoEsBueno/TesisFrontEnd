@@ -28,5 +28,8 @@ export class MostradorHistorialComponent {
     this.compra.rams.forEach((ram: any) => {
       this.producto.push(new Producto(ram));
     });
+    this.compra.cables.forEach((cables: any) => {
+      this.producto.push(new Producto(cables));
+    });
   }
 }

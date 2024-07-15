@@ -1,0 +1,60 @@
+
+<div style="width: 30%;  margin: auto;margin-top: 3%;">
+<p-card header="Solicitud de recepción">
+  <div>
+    <div>
+      <label for="peso">Peso aproximado:</label>
+    </div>
+    <input
+    pInputText
+    id="peso"
+    class="p-inputtext-sm"
+    aria-describedby="peso-help"
+    [(ngModel)]="pesoAproximado" />
+  </div>
+
+  <div style="margin-top: 3%;">
+    <div>
+      <label for="volumen">Volumen aproximado:</label>
+    </div>
+    <input
+    pInputText
+    id="volumen"
+    class="p-inputtext-sm"
+    aria-describedby="peso-help"
+    [(ngModel)]="volumenAproximado" />
+  </div>
+
+  <div style="margin-top: 3%;">
+    <div>
+      <label for="metodo">Metodo recepción:</label>
+    </div>
+            <p-dropdown
+              [options]="metodos"
+              [(ngModel)]="metodoSeleccionado"
+              optionLabel="metodo_despacho_nombre"
+              placeholder="metodo de recepción" />
+  </div>
+  <div style="margin-top: 3%;">
+    <div>
+      <label for="descripcion">Descripción:</label>
+    </div>
+    <textarea
+      rows="5"
+      cols="17"
+      pInputTextarea
+      [(ngModel)]="descripcion">
+    </textarea>
+  </div>
+      <div style="margin-top: 3%;">
+        <p-button
+          [disabled]="!(pesoAproximado && volumenAproximado && metodoSeleccionado)"
+          size="small"
+          (onClick)="crearSolicitud()">
+          Enviar
+        </p-button>
+      </div>
+</p-card>
+  </div>
+
+<p-toast />

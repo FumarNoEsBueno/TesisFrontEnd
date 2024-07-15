@@ -57,53 +57,50 @@ export class MostradorDiscoDuroComponent {
   }];
   preciosModel: any[] = [];
   capacidades: any[] = [{
-    capacidad_nombre: "0 GB - 100 GB",
+    capacidad_nombre: "0 GB - 128 GB",
     id: 1
   },{
-    capacidad_nombre: "100 GB - 250 GB",
+    capacidad_nombre: "128 GB - 256 GB",
     id: 2
   },{
-    capacidad_nombre: "251 GB - 500 GB",
+    capacidad_nombre: "256 GB - 512 GB",
     id: 3
   },{
-    capacidad_nombre: "500 GB - 1000 GB",
+    capacidad_nombre: "512 GB - 1024 GB",
     id: 4
   },{
-    capacidad_nombre: "1000 GB - 2000 GB",
+    capacidad_nombre: "1024 GB - 2048 GB",
     id: 5
   }];
-  capacidadesModel: string[] = [];
+  capacidadesModel: number[] = [];
   esperanzas: any[] = [{
-    esperanza_nombre: "No se como indicar la esperzanda de vida de un disco duro :V",
+    esperanza_nombre: "0 - 5.000",
     id: 1
   },{
-    esperanza_nombre: "No se como indicar la esperzanda de vida de un disco duro :V",
+    esperanza_nombre: "5.000 - 10.000",
     id: 2
   },{
-    esperanza_nombre: "No se como indicar la esperzanda de vida de un disco duro :V",
+    esperanza_nombre: "10.000 - 15.000",
     id: 3
   },{
-    esperanza_nombre: "No se como indicar la esperzanda de vida de un disco duro :V",
+    esperanza_nombre: "15.000 - 20.000",
     id: 4
   }];
-  esperanzasModel: string[] = [];
+  esperanzasModel: number[] = [];
   horas: any[] = [{
-    hora_nombre: "0 H - 3 H",
+    hora_nombre: "0  - 5.000",
     id: 1
   },{
-    hora_nombre: "4 H - 10 H",
+    hora_nombre: "5.000 - 10.000",
     id: 2
   },{
-    hora_nombre: "11 H - 20 H",
+    hora_nombre: "10.000  - 15.000",
     id: 3
   },{
-    hora_nombre: "21 H - 50 H",
+    hora_nombre: "15.000  - 20.000",
     id: 4
-  },{
-    hora_nombre: "51 H -  H",
-    id: 5
   }];
-  horasModel: string[] = [];
+  horasModel: number[] = [];
 
   constructor(private comprasService: ComprasService){}
 
@@ -115,7 +112,7 @@ export class MostradorDiscoDuroComponent {
     this.comprasService.getDisponibilidad().subscribe((res: any) =>{
       this.disponibilidades = res.filter((producto: any) => producto.disponibilidad_nombre !== 'Vendido');
     });
-    this.comprasService.getDiscosDuros(this.page,[],[],[],[],[]).subscribe((res: any) =>{
+    this.comprasService.getDiscosDuros(this.page,[],[],[],[],[],[],[],[],[]).subscribe((res: any) =>{
       this.discosDuros = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
@@ -134,6 +131,10 @@ export class MostradorDiscoDuroComponent {
                                        this.estadosModel,
                                        this.tamanosModel,
                                        this.marcasModel,
+                                       this.preciosModel,
+                                       this.capacidadesModel,
+                                       this.esperanzasModel,
+                                       this.horasModel,
                                        this.sistemaArchivosModel).subscribe((res: any) =>{
 
       this.discosDuros = res.data.map((item: any) => new Producto(item));
@@ -151,6 +152,10 @@ export class MostradorDiscoDuroComponent {
                                        this.estadosModel,
                                        this.tamanosModel,
                                        this.marcasModel,
+                                       this.preciosModel,
+                                       this.capacidadesModel,
+                                       this.esperanzasModel,
+                                       this.horasModel,
                                        this.sistemaArchivosModel).subscribe((res: any) =>{
       this.discosDuros = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;

@@ -2,87 +2,14 @@
 <div style="display: flex;">
   <div style="margin-right: 1%;" [style]="{ width: '20%' }">
     <p-card header="opciones">
-      <div><span style="cursor: pointer;" (click)="estado = 0">Historial de compras</span></div>
-      <div><span style="cursor: pointer;" (click)="estado = 1">Gestion de perfil</span></div>
+      <div><span style="cursor: pointer;" (click)="aHistorial()">Historial de compras</span></div>
+      <div><span style="cursor: pointer;" (click)="aRecepcion()">Historial de recepción</span></div>
+      <div><span style="cursor: pointer;" (click)="aDirecciones()">Gestion de perfil</span></div>
       <span></span>
     </p-card>
   </div>
 
   <div style="display: flex;">
-    @switch (estado) {
-    @case (0) {
-    <div>
-      <h3>Historial de compras</h3>
-      @for (compra of listaCompras; track compra) {
-      <app-mostrador-historial [compra]="compra"/>
-        }
-    </div>
-  }
-    @case (1) {
-    <div>
-      <h3>Gestion de perfil</h3>
-    <div style="margin-top: 20px;">
-      <p>Gestion de contraseña</p>
-    </div>
-    <div>
-      <p>Gestion de direcciones</p>
-            @for (direccion of direcciones; track direcciones) {
-              <app-mostrador-direccion
-                [direccion]="direccion"
-                (onEliminarClick)="eliminarDireccion($event)"
-                [seleccionable]="false"
-                />
-            }
-            @if(agregando){
-    <div>
-            <p-dropdown
-              [options]="listaRegiones"
-              [(ngModel)]="nuevaDireccionRegion"
-              optionLabel="name"
-              (onChange)="getProvincias()"
-              placeholder="Seleccione region" />
-
-    </div>
-    <div>
-            <p-dropdown
-              [options]="listaProvincia"
-              [(ngModel)]="nuevaDireccionProvincia"
-              optionLabel="name"
-              (onChange)="getCiudades()"
-              [disabled]="listaProvincia == null"
-              placeholder="Seleccione provincia" />
-    </div>
-    <div>
-
-            <p-dropdown
-              [options]="listaCiudades"
-              [(ngModel)]="nuevaDireccionCiudad"
-              optionLabel="name"
-              [disabled]="listaCiudades == null"
-              placeholder="Seleccione ciudad" />
-    </div>
-    <div>
-            <input
-              pInputText
-              id="nuevaDireccionCalle"
-              class="p-inputtext-sm"
-              aria-describedby="nuevaDireccionCalle-help"
-              [(ngModel)]="nuevaDireccionCalle" />
-    </div>
-    <div>
-              <p-button size="small"
-                label="agregar"
-                [disabled]="nuevaDireccionCiudad == null"
-                (onClick)="agregarDireccion()"/>
-    </div>
-            }@else{
-              <p-button size="small" label="agregar" (onClick)="agregando = true"/>
-            }
-    </div>
-    </div>
-  }
-  }
+    <router-outlet></router-outlet>
   </div>
 </div>
-
-<p-toast />

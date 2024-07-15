@@ -1,0 +1,62 @@
+    <div>
+      <h3>Gestion de perfil</h3>
+    <div style="margin-top: 20px;">
+      <p>Gestion de contraseña</p>
+    </div>
+    <div>
+      <p>Gestion de direcciones</p>
+            @for (direccion of direcciones; track direcciones) {
+              <app-mostrador-direccion
+                [direccion]="direccion"
+                (onEliminarClick)="eliminarDireccion($event)"
+                [seleccionable]="false"
+                />
+            }
+            @if(agregando){
+    <div>
+            <p-dropdown
+              [options]="listaRegiones"
+              [(ngModel)]="nuevaDireccionRegion"
+              optionLabel="name"
+              (onChange)="getProvincias()"
+              placeholder="Seleccione region" />
+
+    </div>
+    <div>
+            <p-dropdown
+              [options]="listaProvincia"
+              [(ngModel)]="nuevaDireccionProvincia"
+              optionLabel="name"
+              (onChange)="getCiudades()"
+              [disabled]="listaProvincia == null"
+              placeholder="Seleccione provincia" />
+    </div>
+    <div>
+
+            <p-dropdown
+              [options]="listaCiudades"
+              [(ngModel)]="nuevaDireccionCiudad"
+              optionLabel="name"
+              [disabled]="listaCiudades == null"
+              placeholder="Seleccione ciudad" />
+    </div>
+    <div>
+            <input
+              pInputText
+              id="nuevaDireccionCalle"
+              class="p-inputtext-sm"
+              aria-describedby="nuevaDireccionCalle-help"
+              [(ngModel)]="nuevaDireccionCalle" />
+    </div>
+    <div>
+              <p-button size="small"
+                label="agregar"
+                [disabled]="nuevaDireccionCiudad == null"
+                (onClick)="agregarDireccion()"/>
+    </div>
+            }@else{
+              <p-button size="small" label="agregar" (onClick)="agregando = true"/>
+            }
+    </div>
+    </div>
+<p-toast />

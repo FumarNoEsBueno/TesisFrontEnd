@@ -1,7 +1,19 @@
 <div style="margin-right: 10px; margin-top: 20px; text-align: center;">
-  <h1>Home page</h1>
-  <p-image
-    src="http://localhost:8000/api/images/Jesus.gif"
-    alt="Image"
-    width="250" />
+  @if(productos != []){
+<div style="margin-right: 10px; margin-top: 20px; text-align: left;">
+  <h2>Productos nuevos:</h2>
+</div>
+  <p-carousel
+    [value]="productos"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="false">
+        <ng-template let-product pTemplate="item">
+          <app-mostrador-producto
+            [producto] = product
+            (agregarAlCarro)="agregarAlCarro($event)"
+            />
+        </ng-template>
+</p-carousel>
+}
 </div>

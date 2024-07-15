@@ -30,12 +30,14 @@ export class NavBarComponent {
       {label: 'Discos duros',  routerLink: ['./disco-duro']},
       {label: 'Memorias ram',  routerLink: ['./ram']},
       {label: 'Perifericos',  routerLink: ['./periferico']},
+      {label: 'Cables',  routerLink: ['./cables']},
+      {label: 'Recepción de residuos',  routerLink: ['./recepcion']},
     ];
 
     aLogin(){
       this.loginService.checkLogin().subscribe({
         next: (res: any) => {
-            this.router.navigate(['/profile'])
+            this.router.navigate(['/profile/historial'])
         },
         error: (err: any) => {
           this.router.navigate(['/login'])

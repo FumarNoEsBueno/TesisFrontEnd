@@ -1,4 +1,4 @@
-<div style="max-width: 293px;">
+<div style="max-width: 290px;">
   <p-card>
     <div class="flex align-items-center">
       <p-image  (click)="mostrarDetalles()" src="http://localhost:8000/api/images/{{producto.imagenUrl}}" alt="Image" height="250" width="250"></p-image>
@@ -25,18 +25,64 @@
       </span>
       }
       @case("ram"){
+      <span style="word-wrap: break-word;">
+        Tipo: {{producto.tipo_ram}}, capacidad: {{producto.capacidad}} GB, tamaño: {{producto.tamano_ram}} velocidad: {{producto.velocidad_ram}}, Marca: {{producto.marca}}.
+      </span>
+      }
+      @case("cable"){
+      <span style="word-wrap: break-word;">
+        Unidades disponibles: {{producto.cantidad}}, precio: {{producto.precio}}, marca: {{producto.marca}}, tipo de entrada: {{producto.tipo_entrada}}.
+      </span>
       }
       }
     </div>
     <div style="margin-right: 10px; margin-top: 20px; text-align: right;">
-      <p-button [outlined]="true" size="small" (click)="anadirAlCarrito()" label="Añadir al carrito"></p-button>
-    </div>
+      @if(producto.tipoProducto == "cable"){
+      <div>
+        <p-dropdown
+          [options]="cantidadProducto"
+          [(ngModel)]="producto.cantidad_seleccionada"
+          placeholder="Cantidad" />
+      </div>
+      <div style=" margin-top: 5px">
+        <p-button
+          [outlined]="true"
+          size="small"
+          [disabled]="!producto.cantidad_seleccionada"
+          (click)="anadirAlCarrito()"
+          label="Añadir al carrito"></p-button>
+      </div>
+      }
+      @if(producto.tipoProducto != "cable"){
+      <div>
+        <p-button [outlined]="true" size="small" (click)="anadirAlCarrito()" label="Añadir al carrito"></p-button>
+      </div>
+      }
+      </div>
   </p-card>
-</div>
+    </div>
 
-<p-dialog [draggable]="false" header="Detalles" [(visible)]="visible" [style]="{width: '50vw'}">
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-dialog>
+    <p-dialog [draggable]="false" header="Detalles" [(visible)]="visible" [style]="{width: '50vw'}">
+      @switch(producto.tipoProducto){
+      @case("disco"){
+      <span style="word-wrap: break-word;">
+        {{producto.memoria}} GB, {{producto.marca}}, tamaño: {{producto.tamano}}, sistema de archivos: {{producto.sistemaArchivos}}.
+      </span>
+      }
+      @case("periferico"){
+      <span style="word-wrap: break-word;">
+        Tipo: {{producto.tipo_periferico}}, entrada: {{producto.tipo_entrada}}, Marca: {{producto.marca}}.
+      </span>
+      }
+      @case("ram"){
+      <span style="word-wrap: break-word;">
+        Tipo: {{producto.tipo_ram}}, capacidad: {{producto.capacidad}} GB, tamaño: {{producto.tamano_ram}} velocidad: {{producto.velocidad_ram}}, Marca: {{producto.marca}}.
+      </span>
+      }
+      @case("cable"){
+      <span style="word-wrap: break-word;">
+        Unidades disponibles: {{producto.cantidad}}, precio: {{producto.precio}}, marca: {{producto.marca}}, tipo de entrada: {{producto.tipo_entrada}}.
+      </span>
+      }
+      }
+    </p-dialog>

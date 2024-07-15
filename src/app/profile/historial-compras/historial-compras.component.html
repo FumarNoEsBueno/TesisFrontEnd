@@ -1,0 +1,6 @@
+    <div>
+      <h3>Historial de compras</h3>
+      @for (compra of listaCompras; track compra) {
+      <app-mostrador-historial [compra]="compra"/>
+        }
+    </div>
