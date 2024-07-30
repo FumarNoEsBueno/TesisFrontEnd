@@ -4,6 +4,7 @@ export class Producto {
 
   tipoProducto: any;
   nombre: any;
+  estado: any;
   imagenUrl: any;
   crystaldisk: any;
   esperanzaVida: any;
@@ -31,6 +32,7 @@ export class Producto {
 
     this.id = producto.id;
     this.descuento = producto.descuento_id;
+    this.estado = producto.estado_nombre;
 
     if(producto.ram_nombre != null){
       this.tipoProducto = "ram";
@@ -65,7 +67,7 @@ export class Producto {
       this.horas = producto.disco_duro_horas_encendido;
       this.memoria = producto.disco_duro_memoria;
       this.sistemaArchivos = producto.sistema_archivos_nombre;
-      this.tipo_entrada = producto.tipo_entrada;
+      this.tipo_entrada = producto.tipo_entrada_nombre;
       this.tamano = producto.tamano_nombre;
     }
 

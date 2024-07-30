@@ -19,6 +19,17 @@
           }
         </p-accordionTab>
         <p-accordionTab header="Capacidad">
+          @for (capacidad of capacidad; track capacidad.id) {
+          <div class="flex align-items-center">
+            <p-checkbox (onChange)="onFilterChange()"
+              name="capacidad"
+              value="{{capacidad.id}}"
+              label="{{capacidad.capacidad_ram_capacidad}} G"
+              [(ngModel)]="capacidadModel"></p-checkbox>
+          </div>
+          }
+        </p-accordionTab>
+        <p-accordionTab header="Tipo ram">
           @for (tipo of tipos; track tipo.tipo_ram_nombre) {
           <div class="flex align-items-center">
             <p-checkbox (onChange)="onFilterChange()"
@@ -28,7 +39,7 @@
           </div>
           }
         </p-accordionTab>
-        <p-accordionTab header="Velodidad">
+        <p-accordionTab header="Velocidad">
           @for (velocidad of velocidads; track velocidad.velocidad_ram_velocidad) {
           <div class="flex align-items-center">
             <p-checkbox (onChange)="onFilterChange()"

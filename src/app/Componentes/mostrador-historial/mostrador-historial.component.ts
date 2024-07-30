@@ -20,16 +20,23 @@ export class MostradorHistorialComponent {
 
   ngOnInit(){
     this.compra.discos.forEach((disco: any) => {
-      this.producto.push(new Producto(disco));
+      this.producto.push(this.anadirPivote(disco));
     });
     this.compra.perifericos.forEach((periferico: any) => {
-      this.producto.push(new Producto(periferico));
+      this.producto.push(this.anadirPivote(periferico));
     });
     this.compra.rams.forEach((ram: any) => {
-      this.producto.push(new Producto(ram));
+      this.producto.push(this.anadirPivote(ram));
     });
     this.compra.cables.forEach((cables: any) => {
-      this.producto.push(new Producto(cables));
+      this.producto.push(this.anadirPivote(cables));
     });
+  }
+
+  anadirPivote(producto: any){
+        let response = new Producto(producto)
+        response.descuento = producto.pivot.descuento_id;
+        console.log(response.descuento);
+        return response;
   }
 }

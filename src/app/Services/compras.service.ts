@@ -37,6 +37,14 @@ export class ComprasService {
     return this.http.get(this.url + 'parametros/tamano');
   }
 
+  getTipoEntrada(){
+    return this.http.get(this.url + 'parametros/tipo_entrada');
+  }
+
+  getTipoPeriferico(){
+    return this.http.get(this.url + 'parametros/tipo_periferico');
+  }
+
   getMarcas(){
     return this.http.get(this.url + 'parametros/marca');
   }
@@ -90,10 +98,14 @@ export class ComprasService {
     return this.http.post(this.url + 'get_recepcion_paginated_by_user_id', null, { headers });
   }
 
-  getHistorialCompras(){
+  getHistorialCompras(page: any){
     let token = localStorage.getItem( 'token' );
     const headers = new HttpHeaders().set("Authorization","Bearer " + token);
-    return this.http.post(this.url + 'get_compras_by_user_id', null, { headers });
+    return this.http.post(this.url + 'get_compras_by_user_id?page=' + page, null, { headers });
+  }
+
+  getCapacidadRam(){
+    return this.http.get(this.url + 'parametros/capacidad_ram');
   }
 
   getEstados(){
@@ -104,16 +116,92 @@ export class ComprasService {
     return this.http.get(this.url + 'parametros/despacho');
   }
 
-  getCables(){
-    return this.http.get(this.url + 'cables');
+  getCables(page:any,
+          estado: string[],
+          marca: string[],
+          tipoEntrada: string[],
+          precio: number[],){
+
+    let url = this.url + 'cables?page='+page;
+
+    estado.forEach((e: String) => {
+      url = url + '&estado[]='+e;
+    });
+    marca.forEach((e: String) => {
+      url = url + '&marca[]='+e;
+    });
+    tipoEntrada.forEach((e: String) => {
+      url = url + '&tipoEntrada[]='+e;
+    });
+    precio.forEach((e: number) => {
+      url = url + '&precio[]='+e;
+    });
+
+    return this.http.get(url);
   }
 
-  getPerifericos(){
-    return this.http.get(this.url + 'perifericos');
+  getPerifericos(page:any,
+          estado: string[],
+          marca: string[],
+          tipoEntrada: string[],
+          tipoPeriferico: string[],
+          precio: number[],){
+    let url = this.url + 'perifericos?page='+page;
+
+    estado.forEach((e: String) => {
+      url = url + '&estado[]='+e;
+    });
+    marca.forEach((e: String) => {
+      url = url + '&marca[]='+e;
+    });
+    tipoEntrada.forEach((e: String) => {
+      url = url + '&tipoEntrada[]='+e;
+    });
+    tipoPeriferico.forEach((e: String) => {
+      url = url + '&tipoPeriferico[]='+e;
+    });
+    precio.forEach((e: number) => {
+      url = url + '&precio[]='+e;
+    });
+
+    return this.http.get(url);
   }
 
-  getRams(){
-    return this.http.get(this.url + 'rams');
+  getRams(page:any,
+          estado: string[],
+          marca: string[],
+          capacidad: string[],
+          tipo: string[],
+          velocidad: string[],
+          tamano: string[],
+          precio: number[],
+          ){
+
+    let url = this.url + 'rams?page='+page;
+
+    estado.forEach((e: String) => {
+      url = url + '&estado[]='+e;
+    });
+    marca.forEach((e: String) => {
+      url = url + '&marca[]='+e;
+    });
+    capacidad.forEach((e: String) => {
+      url = url + '&capacidad[]='+e;
+    });
+    tipo.forEach((e: String) => {
+      url = url + '&tipo[]='+e;
+    });
+    velocidad.forEach((e: String) => {
+      url = url + '&velocidad[]='+e;
+    });
+    tamano.forEach((e: String) => {
+      url = url + '&tamano[]='+e;
+    });
+    precio.forEach((e: number) => {
+      url = url + '&precio[]='+e;
+    });
+
+    return this.http.get(url);
   }
 
   getDiscosDuros(page:any,
@@ -162,5 +250,16 @@ export class ComprasService {
   getProductosNuevos(){
     return this.http.get(this.url + 'get_productos_nuevos');
   }
+
+  getCablesRecomendados(entradaNombre: any){
+    return this.http.get(this.url + 'get_cable_recomendado?tipoEntrada=' + entradaNombre);
+  }
+
+  cambiarContraseña(nuevaContraseña: any, contraseñaActual: any){
+    let token = localStorage.getItem( 'token' );
+    const headers = new HttpHeaders().set("Authorization","Bearer " + token);
+    return this.http.post(this.url + 'update_password', {actual:contraseñaActual,contrasena_nueva: nuevaContraseña}, { headers });
+  }
+
 
 }

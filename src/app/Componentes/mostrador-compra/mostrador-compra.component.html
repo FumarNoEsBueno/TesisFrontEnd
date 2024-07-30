@@ -7,10 +7,15 @@
         <span style="font-weight: bold;">
           {{producto.nombre}}
         </span><br>
+        @if(producto.tipoProducto != "cable"){
         <span>
-          Precio: {{producto.precio}} Clp.
+          Precio: {{precioFinal}} Clp.
         </span><br>
+        }
         @if(producto.tipoProducto == "cable"){
+        <span>
+          Precio: {{producto.precio * producto.cantidad_seleccionada}} Clp.
+        </span><br>
         <span>
           Cantidad: {{producto.cantidad_seleccionada}}.
         </span>

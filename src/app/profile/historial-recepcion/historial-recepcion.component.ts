@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { ComprasService } from '../../Services/compras.service';
+import { CardModule } from 'primeng/card';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
   selector: 'app-historial-recepcion',
   standalone: true,
-  imports: [],
+  imports: [ScrollPanelModule,
+    CardModule],
   templateUrl: './historial-recepcion.component.html',
   styleUrl: './historial-recepcion.component.css'
 })
@@ -17,7 +20,8 @@ export class HistorialRecepcionComponent {
   ngOnInit(){
     this.comprasService.getHistorialRecepcion().subscribe({
       next: (res: any) => {
-        this.listaRecepcion = res;
+        this.listaRecepcion = res.data;
+        console.log(this.listaRecepcion);
       },
     });
   }

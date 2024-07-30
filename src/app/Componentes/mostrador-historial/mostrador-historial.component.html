@@ -1,6 +1,6 @@
 <p-card>
-  <div style="display: flex; justify-content: space-between;">
-    <div>
+<div style="display: flex;">
+  <div  [style]="{ width: '30%' }">
         <span style="font-weight: bold;">
           Codigo:
         </span>
@@ -14,11 +14,13 @@
           {{compra.estado_compra.estado_compra_nombre}}
         </span><br>
     </div>
+  <div style="flex: 1;">
     <p-scrollPanel [style]="{ width: '100%', maxHeight: '250px' }">
       @for (disco of producto; track disco.id) {
       <app-mostrador-compra [producto]="disco" [eliminable]="false">
       </app-mostrador-compra>
       }
     </p-scrollPanel>
+    </div>
   </div>
 </p-card>

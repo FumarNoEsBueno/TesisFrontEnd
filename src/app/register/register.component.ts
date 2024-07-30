@@ -24,10 +24,11 @@ export class RegisterComponent {
   constructor(private loginService: LoginServiceService,
               private router: Router) { }
 
-  name: any;
-  email: any;
+  name = '';
+  email = '';
   password = '';
-  passwordRepeat: any;
+  number = '';
+  passwordRepeat = '';
 
   messages: Message[] = [];
 
@@ -35,7 +36,8 @@ export class RegisterComponent {
       let credentials = {
         name: this.name,
         email: this.email,
-        password: this.password
+        password: this.password,
+        number: this.number
       };
 
       this.loginService.register(credentials).subscribe({
@@ -43,6 +45,7 @@ export class RegisterComponent {
            this.messages = [{ severity: 'success', detail: 'Cuenta registrada correctamente' }];
            this.name = "";
            this.email = "";
+           this.number = "";
            this.password = "";
            this.passwordRepeat = "";
         },

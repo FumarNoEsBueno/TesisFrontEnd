@@ -18,6 +18,24 @@
           </div>
           }
         </p-accordionTab>
+        <p-accordionTab header="Tipo periferico">
+          @for (tipo of tipoPerifericos; track tipo.nombre_tipo_periferico) {
+          <div class="flex align-items-center">
+            <p-checkbox (onChange)="onFilterChange()" name="tipo_periferico"
+              value="{{tipo.id}}" label="{{tipo.nombre_tipo_periferico}}"
+              [(ngModel)]="tipoPerifericosModel"></p-checkbox>
+          </div>
+          }
+        </p-accordionTab>
+        <p-accordionTab header="Tipo entrada">
+          @for (entrada of tipoEntrada; track entrada.tipo_entrada_nombre) {
+          <div class="flex align-items-center">
+            <p-checkbox (onChange)="onFilterChange()" name="marca"
+                value="{{entrada.id}}" label="{{entrada.tipo_entrada_nombre}}"
+                [(ngModel)]="tipoEntradaModel"></p-checkbox>
+          </div>
+          }
+        </p-accordionTab>
         <p-accordionTab header="Precio">
           @for (precio of precios; track precio.precio_nombre) {
           <div class="flex align-items-center">

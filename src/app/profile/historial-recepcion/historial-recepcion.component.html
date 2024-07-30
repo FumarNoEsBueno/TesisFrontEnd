@@ -1,1 +1,39 @@
-<p>historial-recepcion works!</p>
+<h2>Historial de solicitudes de recepcion de residuos</h2>
+@for (recepcion of listaRecepcion; track recepcion) {
+<p-card>
+  <div style="display: flex; justify-content: space-between;">
+    <div>
+        <span style="font-weight: bold;">
+          Codigo:
+        </span>
+        <span>
+          {{recepcion.solicitud_recepcion_codigo}}
+        </span><br>
+        <span style="font-weight: bold;">
+          Estado:
+        </span>
+        <span>
+          {{recepcion.recepcion_estado.recepcion_estado_nombre}}
+        </span><br>
+        <span style="font-weight: bold;">
+          Peso:
+        </span>
+        <span>
+          {{recepcion.solicitud_recepcion_peso_aproximado}}
+        </span><br>
+        <span style="font-weight: bold;">
+          Volumen:
+        </span>
+        <span>
+          {{recepcion.solicitud_recepcion_peso_aproximado}}
+        </span><br>
+        <span style="font-weight: bold;">
+          Descripción:
+        </span>
+        <span>
+          {{recepcion.solicitud_recepcion_descripcion}}
+        </span><br>
+    </div>
+  </div>
+</p-card>
+}

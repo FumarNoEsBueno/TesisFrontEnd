@@ -1,6 +1,9 @@
-    <div>
-      <h3>Historial de compras</h3>
-      @for (compra of listaCompras; track compra) {
-      <app-mostrador-historial [compra]="compra"/>
-        }
-    </div>
+<h3>Historial de compras</h3>
+@for (compra of listaCompras; track compra) {
+<app-mostrador-historial [compra]="compra"/>
+  }
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first" [rows]="rows"
+    [totalRecords]="totalRecords">
+  </p-paginator>

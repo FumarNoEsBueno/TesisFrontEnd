@@ -18,6 +18,12 @@ export class MostradorCompraComponent {
 
   @Output() eliminarCompra = new EventEmitter<Producto>();
 
+  precioFinal: any;
+
+  ngOnInit(){
+    this.precioFinal = Math.round(this.producto.precio * (1 - (this.producto.descuento / 10)));
+  }
+
   eliminarDiscoDuro(){
     this.eliminarCompra.emit(this.producto);
   }

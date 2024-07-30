@@ -7,6 +7,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { ComprasService } from '../../Services/compras.service';
 
 @Component({
   selector: 'app-gestion-direcciones',
@@ -23,6 +24,7 @@ import { ToastModule } from 'primeng/toast';
 export class GestionPerfilComponent {
 
   constructor(private loginService: LoginServiceService,
+              private compraService: ComprasService,
               private messageService: MessageService,
               private router: Router) { }
 
@@ -38,6 +40,10 @@ export class GestionPerfilComponent {
   nuevaDireccionRegion: any;
   nuevaDireccionProvincia: any;
   nuevaDireccionCalle: any;
+
+  contrasenaActual = "";
+  contrasenaNueva = "";
+  contrasenaNuevaRepetir = "";
 
   ngOnInit(){
     this.getDirecciones();
@@ -135,6 +141,19 @@ export class GestionPerfilComponent {
       error: () => {
         this.router.navigate(['/login'])
     }
+    });
+  }
+
+  cambiarContrasena(){
+    this.compraService.cambiarContraseña(this.contrasenaNueva, this.contrasenaActual).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.contrasenaNueva = "";
+        this.contrasenaNuevaRepetir = "";
+        this.contrasenaActual = "";
+      },
+      error: (err) => {
+      }
     });
   }
 }

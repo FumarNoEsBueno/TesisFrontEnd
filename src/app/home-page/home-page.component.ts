@@ -7,6 +7,7 @@ import { ComprasService } from '../Services/compras.service';
 import { Producto } from '../Classes/Producto';
 import { CarouselModule } from 'primeng/carousel';
 import { MostradorProductoComponent } from '../Componentes/mostrador-producto/mostrador-producto.component';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-home-page',
@@ -14,6 +15,7 @@ import { MostradorProductoComponent } from '../Componentes/mostrador-producto/mo
   templateUrl: './home-page.component.html',
   providers: [MessageService],
   imports: [ImageModule,
+    DialogModule,
     MostradorProductoComponent,
   CarouselModule],
   styleUrls: ['./home-page.component.css']
@@ -25,6 +27,9 @@ export class HomePageComponent {
               private compraService: ComprasService){}
 
   productos = [];
+  producto: any;
+  productosRecomendados = [];
+  visible: boolean = false;
 
   @Output() agregarAlCarroOutput = new EventEmitter<Producto>();
 
@@ -40,6 +45,7 @@ export class HomePageComponent {
         this.productos = this.productos.concat(res[2].map((item: any) => new Producto(item)));
 
         this.productos = this.shuffle(this.productos);
+        console.log(this.productos);
       }
     });
   }
@@ -54,5 +60,20 @@ export class HomePageComponent {
 
   agregarAlCarro(producto: Producto){
     this.agregarAlCarroOutput.emit(producto);
+  }
+
+  loadProducto(producto: any){
+    this.producto = producto;
+    this.visible = true;
+    this.getProductosRecomendados();
+  }
+
+  getProductosRecomendados(){
+    if(this.producto.tipoProducto != "disco") return;
+    this.compraService.getCablesRecomendados(this.producto.tipo_entrada).subscribe({
+      next: (res: any) => {
+        this.productosRecomendados = res.map((item: any) => new Producto(item));
+      }
+    });
   }
 }

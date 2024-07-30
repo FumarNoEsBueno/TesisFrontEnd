@@ -11,9 +11,75 @@
         <ng-template let-product pTemplate="item">
           <app-mostrador-producto
             [producto] = product
+            [home] = "true"
             (agregarAlCarro)="agregarAlCarro($event)"
+            (homeDisplay)="loadProducto($event)"
             />
         </ng-template>
 </p-carousel>
 }
 </div>
+@if(producto != null){
+    <p-dialog [draggable]="false" header="Detalles - {{producto.tipoProducto}}: {{producto.nombre}}" [(visible)]="visible" [style]="{width: '50vw'}">
+      @switch(producto.tipoProducto){
+      @case("disco"){
+      <p-image
+        src="http://localhost:8000/api/images/{{producto.imagenUrl}}"
+        alt="Image" height="250" width="250"></p-image>
+      <p-image
+        [style]="{ marginLeft: '10px' }"
+        src="http://localhost:8000/api/images/{{producto.crystaldisk}}"
+        alt="Image" height="350" width="350"></p-image>
+        <br>
+      <span style="word-wrap: break-word;">
+        {{producto.memoria}} GB, {{producto.marca}}, tamaño: {{producto.tamano}}, sistema de archivos: {{producto.sistemaArchivos}}, tipo de entrada: {{producto.tipo_entrada}}.
+      </span>
+        <br/>
+      }
+      @case("periferico"){
+      <p-image
+        src="http://localhost:8000/api/images/{{producto.imagenUrl}}"
+        alt="Image" height="250" width="250"></p-image>
+      <br>
+      <span style="word-wrap: break-word;">
+        Tipo: {{producto.tipo_periferico}}, entrada: {{producto.tipo_entrada}}, Marca: {{producto.marca}}.
+      </span>
+        <br>
+      }
+      @case("ram"){
+      <p-image
+        src="http://localhost:8000/api/images/{{producto.imagenUrl}}"
+        alt="Image" height="250" width="250"></p-image>
+      <br>
+      <span style="word-wrap: break-word;">
+        Tipo: {{producto.tipo_ram}}, capacidad: {{producto.capacidad}} GB, tamaño: {{producto.tamano_ram}} velocidad: {{producto.velocidad_ram}}, Marca: {{producto.marca}}.
+      </span>
+        <br>
+      }
+      @case("cable"){
+      <span style="word-wrap: break-word;">
+        Unidades disponibles: {{producto.cantidad}}, precio: {{producto.precio}}, marca: {{producto.marca}}, tipo de entrada: {{producto.tipo_entrada}}.
+      </span>
+        <br>
+      }
+      }
+      @if(productosRecomendados.length != 0){
+        <br>
+        <span style="font-weight: bold;">
+          Productos recomendados:
+        </span>
+        <p-carousel
+          [value]="productosRecomendados"
+          [numVisible]="2"
+          [numScroll]="3"
+          [circular]="false">
+          <ng-template let-product pTemplate="item">
+            <app-mostrador-producto
+              [producto] = product
+              [clicable] = false
+              />
+          </ng-template>
+        </p-carousel>
+          }
+    </p-dialog>
+    }

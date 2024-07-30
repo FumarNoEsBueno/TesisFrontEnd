@@ -41,8 +41,10 @@ export class MostradorPerifericoComponent {
   estadosModel: string[] = [];
   marcas: any;
   marcasModel: string[] = [];
-  disponibilidades: any;
-  disponibilidadesModel: string[] = [];
+  tipoEntrada: any;
+  tipoEntradaModel: string[] = [];
+  tipoPerifericos: any;
+  tipoPerifericosModel: string[] = [];
   precios: any[] = [{
     precio_nombre: "0 - 10.000",
     id: 1
@@ -58,10 +60,9 @@ export class MostradorPerifericoComponent {
   ngOnInit(){
     this.compraService.getEstados().subscribe((res) => this.estados = res);
     this.compraService.getMarcas().subscribe((res) => this.marcas = res);
-    this.compraService.getDisponibilidad().subscribe((res: any) =>{
-      this.disponibilidades = res.filter((producto: any) => producto.disponibilidad_nombre !== 'Vendido');
-    });
-    this.compraService.getPerifericos().subscribe({
+    this.compraService.getTipoPeriferico().subscribe((res) => this.tipoPerifericos = res);
+    this.compraService.getTipoEntrada().subscribe((res) => this.tipoEntrada = res);
+    this.compraService.getPerifericos([],[],[],[],[],[]).subscribe({
       next: (res: any) => {
         this.perifericos = res.data.map((item: any) => new Producto(item));
         this.rows = res.per_page;
@@ -74,11 +75,45 @@ export class MostradorPerifericoComponent {
   }
 
   onPageChange(event: any){
+    this.page = event.page + 1;
+    this.loading = true;
+    this.compraService.getPerifericos(
+      this.page,
+      this.estadosModel,
+      this.marcasModel,
+      this.tipoEntradaModel,
+      this.tipoPerifericosModel,
+      this.preciosModel).subscribe((res: any) =>{
+
+      this.perifericos = res.data.map((item: any) => new Producto(item));
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
+    });
   }
 
-  onFilterChange(){}
+  onFilterChange(){
+    this.loading = true;
+    this.compraService.getPerifericos(
+      this.page,
+      this.estadosModel,
+      this.marcasModel,
+      this.tipoEntradaModel,
+      this.tipoPerifericosModel,
+      this.preciosModel).subscribe((res: any) =>{
+
+      this.perifericos = res.data.map((item: any) => new Producto(item));
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
+    });
+  }
 
   agregarAlCarro(periferico: Producto){
     this.agregarAlCarroOutput.emit(periferico);
+  }
+
+  reload(){
+    this.onFilterChange();
   }
 }

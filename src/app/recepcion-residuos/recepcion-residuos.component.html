@@ -3,10 +3,11 @@
 <p-card header="Solicitud de recepción">
   <div>
     <div>
-      <label for="peso">Peso aproximado:</label>
+      <label for="peso">Peso aproximado (en Kg):</label>
     </div>
     <input
     pInputText
+    (keypress)="numberOnly($event)"
     id="peso"
     class="p-inputtext-sm"
     aria-describedby="peso-help"
@@ -15,7 +16,7 @@
 
   <div style="margin-top: 3%;">
     <div>
-      <label for="volumen">Volumen aproximado:</label>
+      <label for="volumen">Volumen aproximado (en M²):</label>
     </div>
     <input
     pInputText
@@ -32,12 +33,12 @@
             <p-dropdown
               [options]="metodos"
               [(ngModel)]="metodoSeleccionado"
-              optionLabel="metodo_despacho_nombre"
+              optionLabel="metodo_recepcion_nombre"
               placeholder="metodo de recepción" />
   </div>
   <div style="margin-top: 3%;">
     <div>
-      <label for="descripcion">Descripción:</label>
+      <label for="descripcion">Descripción (opcional):</label>
     </div>
     <textarea
       rows="5"

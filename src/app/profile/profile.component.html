@@ -1,15 +1,13 @@
-
 <div style="display: flex;">
   <div style="margin-right: 1%;" [style]="{ width: '20%' }">
     <p-card header="opciones">
       <div><span style="cursor: pointer;" (click)="aHistorial()">Historial de compras</span></div>
-      <div><span style="cursor: pointer;" (click)="aRecepcion()">Historial de recepción</span></div>
-      <div><span style="cursor: pointer;" (click)="aDirecciones()">Gestion de perfil</span></div>
+      <div style="margin-top: 3%;"><span style="cursor: pointer;" (click)="aRecepcion()">Historial de recepción</span></div>
+      <div style="margin-top: 3%;"><span style="cursor: pointer;" (click)="aDirecciones()">Gestion de perfil</span></div>
       <span></span>
     </p-card>
   </div>
-
-  <div style="display: flex;">
+  <div style="flex: 1;">
     <router-outlet></router-outlet>
   </div>
-</div>
+  </div>

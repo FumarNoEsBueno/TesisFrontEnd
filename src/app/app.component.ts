@@ -39,7 +39,11 @@ export class AppComponent {
     this.productos = productos;
     this.costoTotal = 0;
     this.productos.forEach((producto) => {
-      this.costoTotal += producto.precio;
+      if(producto.tipoProducto == "cable"){
+        this.costoTotal += producto.precio * producto.cantidad_seleccionada;
+      }else{
+        this.costoTotal += producto.precio;
+      }
     });
   }
 
@@ -55,7 +59,11 @@ export class AppComponent {
         if(!this.productos.some(function(producto){
           return ((producto.id === res.id) && !(producto.tipoProducto != res.tipoProducto));
         })){
-          this.costoTotal += res.precio;
+          if(res.tipoProducto == "cable"){
+            this.costoTotal += res.precio * res.cantidad_seleccionada;
+          }else{
+            this.costoTotal += res.precio;
+          }
           this.productos.push(res);
         }
       });

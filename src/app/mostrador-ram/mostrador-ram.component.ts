@@ -45,8 +45,8 @@ export class MostradorRamComponent {
   velocidadModel: string[] = [];
   tamanos: any;
   tamanosModel: string[] = [];
-  disponibilidades: any;
-  disponibilidadesModel: string[] = [];
+  capacidad: any;
+  capacidadModel: string[] = [];
   precios: any[] = [{
     precio_nombre: "0 - 10.000",
     id: 1
@@ -67,10 +67,8 @@ export class MostradorRamComponent {
     this.comprasService.getTamanoRam().subscribe((res) => this.tamanos = res);
     this.comprasService.getEstados().subscribe((res) => this.estados = res);
     this.comprasService.getMarcas().subscribe((res) => this.marcas = res);
-    this.comprasService.getDisponibilidad().subscribe((res: any) =>{
-      this.disponibilidades = res.filter((producto: any) => producto.disponibilidad_nombre !== 'Vendido');
-    });
-    this.comprasService.getRams().subscribe((res: any) =>{
+    this.comprasService.getCapacidadRam().subscribe((res) => this.capacidad = res);
+    this.comprasService.getRams([],[],[],[],[],[],[],[]).subscribe((res: any) =>{
       this.rams = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;
@@ -84,7 +82,15 @@ export class MostradorRamComponent {
 
   onFilterChange(){
     this.loading = true;
-    this.comprasService.getRams().subscribe((res: any) =>{
+    this.comprasService.getRams(
+      this.page,
+      this.estadosModel,
+      this.marcasModel,
+      this.capacidadModel,
+      this.tipoModel,
+      this.velocidadModel,
+      this.tamanosModel,
+      this.preciosModel).subscribe((res: any) =>{
 
       this.rams = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
@@ -96,7 +102,16 @@ export class MostradorRamComponent {
   onPageChange(event: any){
     this.page = event.page + 1;
     this.loading = true;
-    this.comprasService.getRams().subscribe((res: any) =>{
+    this.comprasService.getRams(
+      this.page,
+      this.estadosModel,
+      this.marcasModel,
+      this.capacidadModel,
+      this.tipoModel,
+      this.velocidadModel,
+      this.tamanosModel,
+      this.preciosModel).subscribe((res: any) =>{
+
       this.rams = res.data.map((item: any) => new Producto(item));
       this.rows = res.per_page;
       this.totalRecords = res.total;

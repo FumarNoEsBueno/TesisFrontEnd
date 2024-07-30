@@ -29,6 +29,17 @@
         aria-describedby="email-help"
         [(ngModel)]="email" />
       </div>
+      <div>
+        <label for="number">Numero telefonico</label>
+      </div>
+      <div class="flex flex-column gap-2">
+        <input
+        pInputText
+        id="number"
+        class="p-inputtext-sm"
+        aria-describedby="email-help"
+        [(ngModel)]="number" />
+      </div>
       <div style="margin-top: 3%;">
         <div>
           <label for="password">Contraseña</label>
@@ -56,7 +67,7 @@
         </div>
       </div>
       <div style="margin-top: 3%;">
-        <p-button size="small" [disabled]="password != passwordRepeat || password == ''"(onClick)="register()">
+        <p-button size="small" [disabled]="!(number != '' && email != '' && name != '' && password == passwordRepeat && password != '')"(onClick)="register()">
           register
         </p-button>
       </div>

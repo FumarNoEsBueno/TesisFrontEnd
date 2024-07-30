@@ -32,6 +32,9 @@ export class MostradorCablesComponent {
   estados: any;
   estadosModel: string[] = [];
 
+  tipoEntrada: any;
+  tipoEntradaModel: string[] = [];
+
   marcas: any;
   marcasModel: string[] = [];
 
@@ -56,7 +59,8 @@ export class MostradorCablesComponent {
   ngOnInit(){
     this.comprasService.getEstados().subscribe((res) => this.estados = res);
     this.comprasService.getMarcas().subscribe((res) => this.marcas = res);
-    this.comprasService.getCables().subscribe({
+    this.comprasService.getTipoEntrada().subscribe((res) => this.tipoEntrada = res);
+    this.comprasService.getCables([],[],[],[],[]).subscribe({
       next: (res: any) => {
         this.cables = res.data.map((item: any) => new Producto(item));
         this.rows = res.per_page;
@@ -67,13 +71,44 @@ export class MostradorCablesComponent {
   }
 
   onFilterChange(){
+    this.loading = true;
+    this.comprasService.getCables(
+      this.page,
+      this.estadosModel,
+      this.marcasModel,
+      this.tipoEntradaModel,
+      this.preciosModel).subscribe((res: any) =>{
+
+      this.cables = res.data.map((item: any) => new Producto(item));
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
+    });
   }
 
-  onPageChange(e: any){}
+  onPageChange(event: any){
+    this.page = event.page + 1;
+    this.loading = true;
+    this.comprasService.getCables(
+      this.page,
+      this.estadosModel,
+      this.marcasModel,
+      this.tipoEntradaModel,
+      this.preciosModel).subscribe((res: any) =>{
+
+      this.cables =res.data.map((item: any) => new Producto(item));
+      this.rows = res.per_page;
+      this.totalRecords = res.total;
+      this.loading = false;
+    });
+  }
 
 
   agregarAlCarro(cable: Producto){
     this.agregarAlCarroOutput.emit(cable);
   }
 
+  reload(){
+    this.onFilterChange();
+  }
 }
