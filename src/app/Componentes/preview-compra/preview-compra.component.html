@@ -143,6 +143,17 @@
       Una copia de los detalles a sido enviada a su correo "{{detallesCompra.compra_email}}"
     </span>
     </div>
+    @if(selectedRetiro == 'retiro'){
+    <div>
+    <span>Codigo compra</span>
+    <p-badge pTooltip="Use este codigo en la seccion de 'Historial de compras' para ver el estado de su pedido"
+      badgeSize="small" value="?"></p-badge>
+    <span>: {{detallesCompra.compra_codigo}} </span>
+    </div>
+    <div>
+      <span>Su pedido se está preparando, una vez este listo, un trabajador se contactara con usted para ver los detalles del retiro.</span>
+    </div>
+    }@else{
     <div>
     <span>Codigo compra</span>
     <p-badge pTooltip="Use este codigo en la seccion de 'Seguimiento de compra' para ver el estado de su pedido"
@@ -153,9 +164,11 @@
       <span>Su pedido se empezara a procesar una vez se haga el deposito a la siguiente
         cuenta bancaria y se envie el comprobante al email adjunto:</span>
     </div>
-    <div>
-      <span> *Datos bancarios de la empresa* </span>
-    </div>
+    <div> <span> Rut: 19372032-3 </span> </div>
+    <div> <span> Cuenta rut </span> </div>
+    <div> <span> Correo: </span> </div>
+    <div> <span> Nombre: </span> </div>
+    }
   }
   @case(3){
     Algo salio mal

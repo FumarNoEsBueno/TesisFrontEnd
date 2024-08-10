@@ -36,7 +36,6 @@ export class MostradorHistorialComponent {
   anadirPivote(producto: any){
         let response = new Producto(producto)
         response.descuento = producto.pivot.descuento_id;
-        console.log(response.descuento);
         return response;
   }
 }
