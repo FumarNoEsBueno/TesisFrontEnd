@@ -21,7 +21,6 @@ export class HistorialRecepcionComponent {
     this.comprasService.getHistorialRecepcion().subscribe({
       next: (res: any) => {
         this.listaRecepcion = res.data;
-        console.log(this.listaRecepcion);
       },
     });
   }

@@ -147,7 +147,6 @@ export class GestionPerfilComponent {
   cambiarContrasena(){
     this.compraService.cambiarContraseña(this.contrasenaNueva, this.contrasenaActual).subscribe({
       next: (res) => {
-        console.log(res);
         this.contrasenaNueva = "";
         this.contrasenaNuevaRepetir = "";
         this.contrasenaActual = "";

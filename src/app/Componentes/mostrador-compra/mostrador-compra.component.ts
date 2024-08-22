@@ -21,7 +21,11 @@ export class MostradorCompraComponent {
   precioFinal: any;
 
   ngOnInit(){
+    if(this.producto.descuento){
+      this.precioFinal = this.producto.precio;
+    }else{
     this.precioFinal = Math.round(this.producto.precio * (1 - (this.producto.descuento / 10)));
+    }
   }
 
   eliminarDiscoDuro(){

@@ -14,6 +14,7 @@
     </app-mostrador-compra>
     }
 </p-sidebar>
+
 <p-dialog [draggable]="false" header="Finalizar compra" [(visible)]="finalizarCompraVisible" [style]="{width: '50vw'}">
   @switch(progresoCompra){
   @case(0){
@@ -60,6 +61,51 @@
                 (changeSelectedDireccion)="updateDireccion($event)"
                 />
             </div>
+            }
+            @if(agregando){
+    <div>
+            <p-dropdown
+              [options]="listaRegiones"
+              [(ngModel)]="nuevaDireccionRegion"
+              optionLabel="name"
+              (onChange)="getProvincias()"
+              placeholder="Seleccione region" />
+
+    </div>
+    <div>
+            <p-dropdown
+              [options]="listaProvincia"
+              [(ngModel)]="nuevaDireccionProvincia"
+              optionLabel="name"
+              (onChange)="getCiudades()"
+              [disabled]="listaProvincia == null"
+              placeholder="Seleccione provincia" />
+    </div>
+    <div>
+
+            <p-dropdown
+              [options]="listaCiudades"
+              [(ngModel)]="nuevaDireccionCiudad"
+              optionLabel="name"
+              [disabled]="listaCiudades == null"
+              placeholder="Seleccione ciudad" />
+    </div>
+    <div>
+            <input
+              pInputText
+              id="nuevaDireccionCalle"
+              class="p-inputtext-sm"
+              aria-describedby="nuevaDireccionCalle-help"
+              [(ngModel)]="nuevaDireccionCalle" />
+    </div>
+    <div>
+              <p-button size="small"
+                label="agregar"
+                [disabled]="nuevaDireccionCiudad == null"
+                (onClick)="agregarDireccion()"/>
+    </div>
+            }@else{
+              <p-button size="small" label="agregar" (onClick)="agregando = true"/>
             }
             }
           </p-scrollPanel>

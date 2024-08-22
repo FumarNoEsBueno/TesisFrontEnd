@@ -77,6 +77,8 @@
             <app-mostrador-producto
               [producto] = product
               [clicable] = false
+              (agregarAlCarro)="agregarAlCarro($event)"
+              (homeDisplay)="loadProducto($event)"
               />
           </ng-template>
         </p-carousel>

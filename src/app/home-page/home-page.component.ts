@@ -45,7 +45,6 @@ export class HomePageComponent {
         this.productos = this.productos.concat(res[2].map((item: any) => new Producto(item)));
 
         this.productos = this.shuffle(this.productos);
-        console.log(this.productos);
       }
     });
   }
