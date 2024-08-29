@@ -55,6 +55,16 @@ export class AppComponent {
     this.childComponent = componentRef;
     if(componentRef.agregarAlCarroOutput != null){
       componentRef.agregarAlCarroOutput.subscribe((res: Producto) => {
+        this.agregarProductoAlCarrito(res);
+        this.generarTokenDeCarrito();
+      });
+    }
+
+    if(componentRef.requestLogin != null){
+    }
+  }
+
+  agregarProductoAlCarrito(res: any){
         this.expandedCarrito = true;
         if(!this.productos.some(function(producto){
           return ((producto.id === res.id) && !(producto.tipoProducto != res.tipoProducto));
@@ -66,11 +76,17 @@ export class AppComponent {
           }
           this.productos.push(res);
         }
-      });
-    }
+  }
 
-    if(componentRef.requestLogin != null){
-    }
+  generarTokenDeCarrito(){
+    let token = this.productos;
+    localStorage.setItem('midTechCarritoDeComprasToken', JSON.stringify(token));
+    console.log(this.leerTokenDeCarrito());
+  }
+
+  leerTokenDeCarrito(){
+    let token = localStorage.getItem( 'midTechCarritoDeComprasToken' );
+    return token;
   }
 
 }
