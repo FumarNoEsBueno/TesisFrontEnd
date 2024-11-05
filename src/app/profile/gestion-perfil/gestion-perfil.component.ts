@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CardModule } from 'primeng/card';
 import { LoginServiceService } from '../../Services/login-service.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -8,11 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ComprasService } from '../../Services/compras.service';
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
   selector: 'app-gestion-direcciones',
   standalone: true,
   imports: [DropdownModule,
+    InputTextModule,
+    CardModule,
     ButtonModule,
     ToastModule,
     FormsModule,

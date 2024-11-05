@@ -17,63 +17,63 @@ import { MostradorCablesComponent } from './mostrador-cables/mostrador-cables.co
 export const routes: Routes = [{
   path: '',
   component: HomePageComponent,
-  title: 'MidTech: Low cost'
+  title: 'BioBío Reciclajes'
 },{
   path: 'ram',
   component: MostradorRamComponent,
-  title: 'MidTech: Rams'
+  title: 'BioBío Reciclajes: Rams'
 },{
   path: 'seguimiento',
   component: MostradorSeguimientoComponent,
-  title: 'MidTech: seguimiento'
+  title: 'BioBío Reciclajes: seguimiento'
 },{
   path: 'periferico',
   component: MostradorPerifericoComponent,
-  title: 'MidTech: Perifericos'
+  title: 'BioBío Reciclajes: Perifericos'
 },{
   path: 'disco-duro',
   component: MostradorDiscoDuroComponent,
-  title: 'MidTech: Discos duros'
+  title: 'BioBío Reciclajes: Discos duros'
 },{
   path: 'login',
   component: LoginComponent,
-  title: 'MidTech: login'
+  title: 'BioBío Reciclajes: login'
 },{
   path: 'profile',
   component: ProfileComponent,
-  title: 'MidTech: perfil',
+  title: 'BioBío Reciclajes: perfil',
   children: [
     {
       path: 'historial',
-      title: 'MidTech: historial compras',
+      title: 'BioBío Reciclajes: historial compras',
       component: HistorialComprasComponent,  // child route component that the router renders
     },
     {
       path: 'recepcion',
-      title: 'MidTech: historial recepcion',
+      title: 'BioBío Reciclajes: historial recepcion',
       component: HistorialRecepcionComponent,  // child route component that the router renders
     },
     {
       path: 'direcciones',
-      title: 'MidTech: gestion de perfil',
+      title: 'BioBío Reciclajes: gestion de perfil',
       component: GestionPerfilComponent,  // another child route component that the router renders
     },
   ],
 },{
   path: 'cables',
   component: MostradorCablesComponent,
-  title: 'MidTech: cables'
+  title: 'BioBío Reciclajes: cables'
 },{
   path: 'recepcion',
   component: RecepcionResiduosComponent,
-  title: 'MidTech: recepción'
+  title: 'BioBío Reciclajes: recepción'
 },{
   path: 'register',
   component: RegisterComponent,
-  title: 'MidTech: register'
+  title: 'BioBío Reciclajes: register'
 },{
   path: 'recover',
   component: RecoverComponent,
-  title: 'MidTech: recover'
+  title: 'BioBío Reciclajes: recover'
 },
 ];

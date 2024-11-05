@@ -251,6 +251,10 @@ export class ComprasService {
     return this.http.get(this.url + 'get_productos_nuevos');
   }
 
+  getProductosDestacados(){
+    return this.http.get(this.url + 'get_productos_destacados');
+  }
+
   getCablesRecomendados(entradaNombre: any){
     return this.http.get(this.url + 'get_cable_recomendado?tipoEntrada=' + entradaNombre);
   }

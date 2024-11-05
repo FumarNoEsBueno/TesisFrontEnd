@@ -2,7 +2,9 @@
   <app-nav-bar
     (abrirCarritoOutput)="abrirCarrito()">
   </app-nav-bar>
-  <router-outlet (activate)="subscribeToChildEvent($event)"></router-outlet>
+  <div [style]="{ marginTop:'1%',marginBottom:'1%' }">
+    <router-outlet (activate)="subscribeToChildEvent($event)"></router-outlet>
+  </div>
   <app-preview-compra
     (discoDuroOutput)="actualizarCarritoDiscosDuros($event)"
     (cerrarCarrito)="abrirCarrito()"

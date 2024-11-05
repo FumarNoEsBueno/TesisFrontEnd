@@ -31,13 +31,13 @@ export class Producto {
   constructor(producto: any) {
 
     this.id = producto.id;
-    this.descuento = producto.descuento_id;
     this.estado = producto.estado_nombre;
 
     if(producto.ram_nombre != null){
       this.tipoProducto = "ram";
       this.nombre = producto.ram_nombre;
       this.imagenUrl = producto.ram_foto;
+      this.descuento = producto.ram_descuento;
       this.precio = producto.ram_precio;
       this.marca = producto.marca_nombre;
       this.tipo_ram = producto.tipo_ram_nombre;
@@ -53,6 +53,7 @@ export class Producto {
       this.precio = producto.periferico_precio;
       this.marca = producto.marca_nombre;
       this.tipo_entrada = producto.tipo_entrada_nombre;
+      this.descuento = producto.periferico_descuento;
       this.tipo_periferico = producto.nombre_tipo_periferico;
     }
 
@@ -68,6 +69,7 @@ export class Producto {
       this.memoria = producto.disco_duro_memoria;
       this.sistemaArchivos = producto.sistema_archivos_nombre;
       this.tipo_entrada = producto.tipo_entrada_nombre;
+      this.descuento = producto.disco_duro_descuento;
       this.tamano = producto.tamano_nombre;
     }
 
@@ -80,6 +82,7 @@ export class Producto {
       this.marca = producto.marca_nombre;
       this.tipo_entrada = producto.tipo_entrada_nombre;
       this.cantidad_seleccionada = 0;
+      this.descuento = producto.cable_descuento;
       if(producto.pivot != null){
         this.cantidad_seleccionada = producto.pivot.compra_cable_cantidad;
       }

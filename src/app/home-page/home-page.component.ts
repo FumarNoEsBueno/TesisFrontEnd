@@ -8,6 +8,7 @@ import { Producto } from '../Classes/Producto';
 import { CarouselModule } from 'primeng/carousel';
 import { MostradorProductoComponent } from '../Componentes/mostrador-producto/mostrador-producto.component';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-home-page',
@@ -16,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
   providers: [MessageService],
   imports: [ImageModule,
     DialogModule,
+    CardModule,
     MostradorProductoComponent,
   CarouselModule],
   styleUrls: ['./home-page.component.css']
@@ -26,8 +28,9 @@ export class HomePageComponent {
               private messageService: MessageService,
               private compraService: ComprasService){}
 
-  productos = [];
   producto: any;
+  productosNuevos = [];
+  productosDestacados = [];
   productosRecomendados = [];
   visible: boolean = false;
 
@@ -35,16 +38,30 @@ export class HomePageComponent {
 
   ngOnInit(){
     this.getProductos();
+    this.getProductosDestacados();
   }
 
   getProductos(){
     this.compraService.getProductosNuevos().subscribe({
       next: (res: any) => {
-        this.productos = this.productos.concat(res[0].map((item: any) => new Producto(item)));
-        this.productos = this.productos.concat(res[1].map((item: any) => new Producto(item)));
-        this.productos = this.productos.concat(res[2].map((item: any) => new Producto(item)));
+        this.productosNuevos = this.productosNuevos.concat(res[0].map((item: any) => new Producto(item)));
+        this.productosNuevos = this.productosNuevos.concat(res[1].map((item: any) => new Producto(item)));
+        this.productosNuevos = this.productosNuevos.concat(res[2].map((item: any) => new Producto(item)));
+        this.productosNuevos = this.productosNuevos.concat(res[3].map((item: any) => new Producto(item)));
 
-        this.productos = this.shuffle(this.productos);
+        this.productosNuevos = this.shuffle(this.productosNuevos);
+      }
+    });
+  }
+
+  getProductosDestacados(){
+    this.compraService.getProductosDestacados().subscribe({
+      next: (res: any) => {
+        this.productosDestacados = this.productosDestacados.concat(res[0].map((item: any) => new Producto(item)));
+        this.productosDestacados = this.productosDestacados.concat(res[1].map((item: any) => new Producto(item)));
+        this.productosDestacados = this.productosDestacados.concat(res[2].map((item: any) => new Producto(item)));
+
+        this.productosDestacados = this.shuffle(this.productosDestacados);
       }
     });
   }

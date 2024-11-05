@@ -1,7 +1,6 @@
     <div>
-      <h3>Gestion de perfil</h3>
-    <div style="margin-top: 20px;">
-      <p>Gestion de contraseña</p>
+    <div>
+    <p-card header="Gestion de contraseña">
       <div style="margin-top: 1%;">
         <div>
           <label for="volumen">Contraseña actual:</label>
@@ -46,9 +45,10 @@
           Cambiar contraseña
         </p-button>
       </div>
+    </p-card>
     </div>
-    <div>
-      <p>Gestion de direcciones</p>
+    <div [style]=" {marginTop:'1%'} ">
+    <p-card header="Gestion de direcciones">
             @for (direccion of direcciones; track direcciones) {
               <app-mostrador-direccion
                 [direccion]="direccion"
@@ -57,7 +57,7 @@
                 />
             }
             @if(agregando){
-    <div>
+    <div style="margin-top: 1%;">
             <p-dropdown
               [options]="listaRegiones"
               [(ngModel)]="nuevaDireccionRegion"
@@ -66,7 +66,7 @@
               placeholder="Seleccione region" />
 
     </div>
-    <div>
+    <div style="margin-top: 1%;">
             <p-dropdown
               [options]="listaProvincia"
               [(ngModel)]="nuevaDireccionProvincia"
@@ -75,7 +75,7 @@
               [disabled]="listaProvincia == null"
               placeholder="Seleccione provincia" />
     </div>
-    <div>
+    <div style="margin-top: 1%;">
 
             <p-dropdown
               [options]="listaCiudades"
@@ -84,7 +84,7 @@
               [disabled]="listaCiudades == null"
               placeholder="Seleccione ciudad" />
     </div>
-    <div>
+    <div style="margin-top: 1%;">
             <input
               pInputText
               id="nuevaDireccionCalle"
@@ -92,15 +92,18 @@
               aria-describedby="nuevaDireccionCalle-help"
               [(ngModel)]="nuevaDireccionCalle" />
     </div>
-    <div>
+    <div style="margin-top: 1%;">
               <p-button size="small"
                 label="agregar"
                 [disabled]="nuevaDireccionCiudad == null"
                 (onClick)="agregarDireccion()"/>
     </div>
             }@else{
+    <div style="margin-top: 1%;">
               <p-button size="small" label="agregar" (onClick)="agregando = true"/>
+    </div>
             }
+    </p-card>
     </div>
     </div>
 <p-toast />

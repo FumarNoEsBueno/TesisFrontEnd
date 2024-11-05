@@ -21,7 +21,7 @@ export class MostradorCompraComponent {
   precioFinal: any;
 
   ngOnInit(){
-    if(this.producto.descuento){
+    if(this.producto.descuento == null){
       this.precioFinal = this.producto.precio;
     }else{
     this.precioFinal = Math.round(this.producto.precio * (1 - (this.producto.descuento / 10)));

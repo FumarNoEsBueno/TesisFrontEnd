@@ -8,8 +8,8 @@
         {{producto.nombre}}
       </span><br>
       @if(producto.descuento != null){
-      <del> Precio: {{producto.precio}} Clp.</del><span> -{{producto.descuento * 10}}%</span><br>
-      <span> Precio: {{producto.precio * (1-(producto.descuento/10))}} Clp.</span><br>
+      <del> Precio: {{producto.precio}} Clp.</del><span> -{{producto.descuento}}%</span><br>
+      <span> Precio: {{(producto.precio)*(100 - producto.descuento) / 100}} Clp.</span><br>
       }@else{
       <span> Precio: {{producto.precio}} Clp.</span><br>
       }

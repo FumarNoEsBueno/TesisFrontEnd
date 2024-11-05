@@ -1,10 +1,8 @@
-<div style="margin-right: 10px; margin-top: 20px; text-align: center;">
-  @if(productos != []){
-<div style="margin-right: 10px; margin-top: 20px; text-align: left;">
-  <h2>Productos nuevos:</h2>
-</div>
+  @if(productosDestacados != []){
+<div style="margin-bottom: 1%;">
+<p-card header="Productos destacados:">
   <p-carousel
-    [value]="productos"
+    [value]="productosDestacados"
     [numVisible]="3"
     [numScroll]="3"
     [circular]="false">
@@ -17,8 +15,28 @@
             />
         </ng-template>
 </p-carousel>
-}
+</p-card>
 </div>
+}
+  @if(productosNuevos != []){
+<p-card header="Productos nuevos:">
+  <p-carousel
+    [value]="productosNuevos"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="false">
+    <ng-template let-product pTemplate="item">
+      <app-mostrador-producto
+        [producto] = product
+        [home] = "true"
+        (agregarAlCarro)="agregarAlCarro($event)"
+        (homeDisplay)="loadProducto($event)"
+        />
+    </ng-template>
+  </p-carousel>
+</p-card>
+}
+
 @if(producto != null){
     <p-dialog [draggable]="false" header="Detalles - {{producto.tipoProducto}}: {{producto.nombre}}" [(visible)]="visible" [style]="{width: '50vw'}">
       @switch(producto.tipoProducto){
