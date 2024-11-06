@@ -40,9 +40,16 @@ export class AppComponent {
     this.costoTotal = 0;
     this.productos.forEach((producto) => {
       if(producto.tipoProducto == "cable"){
-        this.costoTotal += producto.precio * producto.cantidad_seleccionada;
+        if(producto.descuento){
+        }else{
+          this.costoTotal += producto.precio * producto.cantidad_seleccionada;
+        }
       }else{
-        this.costoTotal += producto.precio;
+        if(producto.descuento){
+          this.costoTotal += Math.round((producto.precio)*(100 - producto.descuento) / 100);
+        }else{
+          this.costoTotal += producto.precio;
+        }
       }
     });
   }
@@ -59,9 +66,6 @@ export class AppComponent {
         this.generarTokenDeCarrito();
       });
     }
-
-    if(componentRef.requestLogin != null){
-    }
   }
 
   agregarProductoAlCarrito(res: any){
@@ -70,9 +74,17 @@ export class AppComponent {
           return ((producto.id === res.id) && !(producto.tipoProducto != res.tipoProducto));
         })){
           if(res.tipoProducto == "cable"){
-            this.costoTotal += res.precio * res.cantidad_seleccionada;
+            if(res.descuento){
+              this.costoTotal += Math.round((res.precio)*(100 - res.descuento) / 100) * res.cantidad_seleccionada;
+            }else{
+              this.costoTotal += res.precio * res.cantidad_seleccionada;
+            }
           }else{
-            this.costoTotal += res.precio;
+            if(res.descuento){
+              this.costoTotal += Math.round((res.precio)*(100 - res.descuento) / 100);
+            }else{
+              this.costoTotal += res.precio;
+            }
           }
           this.productos.push(res);
         }
@@ -81,7 +93,6 @@ export class AppComponent {
   generarTokenDeCarrito(){
     let token = this.productos;
     localStorage.setItem('midTechCarritoDeComprasToken', JSON.stringify(token));
-    console.log(this.leerTokenDeCarrito());
   }
 
   leerTokenDeCarrito(){

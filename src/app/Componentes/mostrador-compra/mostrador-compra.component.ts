@@ -24,7 +24,7 @@ export class MostradorCompraComponent {
     if(this.producto.descuento == null){
       this.precioFinal = this.producto.precio;
     }else{
-    this.precioFinal = Math.round(this.producto.precio * (1 - (this.producto.descuento / 10)));
+    this.precioFinal = Math.round((this.producto.precio)*(100 - this.producto.descuento) / 100);
     }
   }
 

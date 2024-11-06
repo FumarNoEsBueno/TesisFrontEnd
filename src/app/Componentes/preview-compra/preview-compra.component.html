@@ -184,11 +184,6 @@
   }
   @case(2){
     <h3>Compra completada correctamente</h3>
-    <div>
-      <span>
-      Una copia de los detalles a sido enviada a su correo "{{detallesCompra.compra_email}}"
-    </span>
-    </div>
     @if(selectedRetiro == 'retiro'){
     <div>
     <span>Codigo compra</span>
@@ -197,7 +192,7 @@
     <span>: {{detallesCompra.compra_codigo}} </span>
     </div>
     <div>
-      <span>Su pedido se está preparando, una vez este listo, un trabajador se contactara con usted para ver los detalles del retiro.</span>
+      <span>Su pedido se está preparando, puede ver el estado del pedido en la sección de 'Historial de compras' de su perfil.</span>
     </div>
     }@else{
     <div>
@@ -211,9 +206,9 @@
         cuenta bancaria y se envie el comprobante al email adjunto:</span>
     </div>
     <div> <span> Rut: 19372032-3 </span> </div>
-    <div> <span> Cuenta rut </span> </div>
-    <div> <span> Correo: </span> </div>
-    <div> <span> Nombre: </span> </div>
+    <div> <span> Cuenta rut: </span> </div>
+    <div> <span> Correo: biobioreciclajes&#64;gmail.com</span> </div>
+    <div> <span> Nombre: Jean Germain </span> </div>
     }
   }
   @case(3){

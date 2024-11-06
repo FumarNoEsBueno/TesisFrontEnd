@@ -60,6 +60,7 @@ export class HomePageComponent {
         this.productosDestacados = this.productosDestacados.concat(res[0].map((item: any) => new Producto(item)));
         this.productosDestacados = this.productosDestacados.concat(res[1].map((item: any) => new Producto(item)));
         this.productosDestacados = this.productosDestacados.concat(res[2].map((item: any) => new Producto(item)));
+        this.productosDestacados = this.productosDestacados.concat(res[3].map((item: any) => new Producto(item)));
 
         this.productosDestacados = this.shuffle(this.productosDestacados);
       }

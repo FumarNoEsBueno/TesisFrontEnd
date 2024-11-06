@@ -101,7 +101,7 @@ export class PreviewCompraComponent {
           this.getDirecciones();
       },
       error: () => {
-        this.router.navigate(['/home'])
+          this.router.navigate(['/login'])
     }
     });
     this.cerrarSidebar();
