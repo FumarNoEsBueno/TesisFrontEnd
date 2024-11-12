@@ -25,11 +25,21 @@ export class AppComponent {
 
   title = 'TesisFrontEnd';
 
+  mobile: boolean = true;
+  mobileStyles = { marginLeft: '11%', marginRight: '11%' };
   sessionToken: any;
   expandedCarrito = false;
   productos: Producto[] = [];
   costoTotal: number = 0;
   childComponent: any;
+
+  ngOnInit(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
+  }
 
   abrirCarrito(){
     this.expandedCarrito = !this.expandedCarrito;

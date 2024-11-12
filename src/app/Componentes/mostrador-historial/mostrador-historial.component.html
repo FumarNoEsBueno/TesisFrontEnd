@@ -13,6 +13,21 @@
         <span>
           {{compra.estado_compra.estado_compra_nombre}}
         </span><br>
+        @if(compra.compra_garantia){
+        <span style="font-weight: bold;">
+          Garantía:
+        </span>
+        @if(fechaActual < fechaGarantia){
+        <span>
+          Activa hasta {{compra.compra_garantia}}
+        </span><br>
+        }@else {
+        <span>
+          Caduca deste {{compra.compra_garantia}}
+        </span><br>
+        }
+        }
+
     </div>
   <div style="flex: 1;">
     <p-scrollPanel [style]="{ width: '100%', maxHeight: '250px' }">

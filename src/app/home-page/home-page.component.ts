@@ -33,10 +33,12 @@ export class HomePageComponent {
   productosDestacados = [];
   productosRecomendados = [];
   visible: boolean = false;
+  mobile: boolean = false;
 
   @Output() agregarAlCarroOutput = new EventEmitter<Producto>();
 
   ngOnInit(){
+    this.getMobile();
     this.getProductos();
     this.getProductosDestacados();
   }
@@ -92,5 +94,13 @@ export class HomePageComponent {
         this.productosRecomendados = res.map((item: any) => new Producto(item));
       }
     });
+  }
+
+  getMobile(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
   }
 }

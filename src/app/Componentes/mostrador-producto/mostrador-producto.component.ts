@@ -38,11 +38,13 @@ export class MostradorProductoComponent {
   @Output() homeDisplay = new EventEmitter<Producto>();
 
   visible = false;
+  mobile: boolean = false;
   advertenciaVisible = false;
   cantidadProducto: any;
   productosRecomendados = [];
 
   ngOnInit(){
+    this.getMobile();
     if(this.producto.tipoProducto == "cable"){
       this.cantidadProducto = Array.from({ length: this.producto.cantidad }, (_, index) => index + 1);
     }
@@ -82,6 +84,14 @@ export class MostradorProductoComponent {
 
   agregarRecomendado(producto: any){
     this.agregarAlCarro.emit(producto);
+  }
+
+  getMobile(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
   }
 
 }

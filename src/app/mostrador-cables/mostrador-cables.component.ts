@@ -56,7 +56,14 @@ export class MostradorCablesComponent {
   totalRecords: any;
   loading = true;
 
+  mobile: any;
+
   ngOnInit(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
     this.comprasService.getEstados().subscribe((res) => this.estados = res);
     this.comprasService.getMarcas().subscribe((res) => this.marcas = res);
     this.comprasService.getTipoEntrada().subscribe((res) => this.tipoEntrada = res);

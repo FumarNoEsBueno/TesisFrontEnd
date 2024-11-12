@@ -17,8 +17,12 @@ export class MostradorHistorialComponent {
 
   @Input() compra: any;
   producto: Producto[] = [];
+  fechaActual = new Date();
+  fechaGarantia = new Date();
+
 
   ngOnInit(){
+    this.fechaGarantia = new Date(this.compra.compra_garantia);
     this.compra.discos.forEach((disco: any) => {
       this.producto.push(this.anadirPivote(disco));
     });

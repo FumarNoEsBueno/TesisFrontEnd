@@ -38,7 +38,7 @@
 }
 
 @if(producto != null){
-    <p-dialog [draggable]="false" header="Detalles - {{producto.tipoProducto}}: {{producto.nombre}}" [(visible)]="visible" [style]="{width: '50vw'}">
+<p-dialog [draggable]="false" header="Detalles - {{producto.tipoProducto}}: {{producto.nombre}}" [(visible)]="visible" [style]="mobile ? {width: '100%'} : {width: '50vw'}">
       @switch(producto.tipoProducto){
       @case("disco"){
       <p-image

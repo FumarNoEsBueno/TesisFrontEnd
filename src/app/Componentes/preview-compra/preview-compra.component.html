@@ -1,4 +1,4 @@
-<p-sidebar [style]="{width:'25%'}" (onHide)="cerrarSidebar()" showCloseIcon="false" [visible]="abierto"  position="right">
+<p-sidebar [style]="mobile ? { } : {width:'25%'}" (onHide)="cerrarSidebar()" showCloseIcon="false" [visible]="abierto"  position="right">
     <h3>Carrito de compras</h3>
     @if(productos.length == 0){
       <p> El carrito de compras está vacio. </p>
@@ -15,7 +15,7 @@
     }
 </p-sidebar>
 
-<p-dialog [draggable]="false" header="Finalizar compra" [(visible)]="finalizarCompraVisible" [style]="{width: '50vw'}">
+<p-dialog [draggable]="false" header="Finalizar compra" [(visible)]="finalizarCompraVisible" [style]="mobile ? { } : {width: '50vw'}">
   @switch(progresoCompra){
   @case(0){
   <p-stepper [(activeStep)]="pasoCompra" [linear]="true">

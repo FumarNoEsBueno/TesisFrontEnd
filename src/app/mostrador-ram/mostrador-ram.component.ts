@@ -58,10 +58,16 @@ export class MostradorRamComponent {
     id: 3
   }];
   preciosModel: any[] = [];
+  mobile: any;
 
   constructor(private comprasService: ComprasService){}
 
   ngOnInit(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
     this.comprasService.getTipoRam().subscribe((res) => this.tipos = res);
     this.comprasService.getVelocidadRam().subscribe((res) => this.velocidads = res);
     this.comprasService.getTamanoRam().subscribe((res) => this.tamanos = res);

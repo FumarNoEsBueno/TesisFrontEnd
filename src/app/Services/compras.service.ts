@@ -56,7 +56,8 @@ export class ComprasService {
   comprarObjetos(productos: Producto[],
                 metodoPago: any,
                 metodoDespacho: any,
-                direccion: any){
+                direccion: any,
+                costoTotal: any){
     let discosIds: any[] = [];
     let perifericosIds: any[] = [];
     let ramsIds: any[] = [];
@@ -79,7 +80,8 @@ export class ComprasService {
         cablesCantidad: cablesCantidad,
         metodoPago: metodoPago,
         metodoDespacho: metodoDespacho,
-        direccionId: direccion
+        direccionId: direccion,
+        costoTotal: costoTotal
     };
     let token = localStorage.getItem( 'token' );
     const headers = new HttpHeaders().set("Authorization","Bearer " + token);

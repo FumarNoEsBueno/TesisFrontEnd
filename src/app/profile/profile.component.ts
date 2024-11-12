@@ -26,9 +26,11 @@ export class ProfileComponent {
               private router: Router) { }
 
   @Output() requestLogin = new EventEmitter<void>();
+  mobile: boolean = true;
 
 
   ngOnInit(){
+    this.getMobile();
     this.loginService.checkLogin().subscribe({
       error: () => {
         this.router.navigate(['/login'])
@@ -49,4 +51,11 @@ export class ProfileComponent {
         this.router.navigate(['/profile/direcciones'])
   }
 
+  getMobile(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
+  }
 }

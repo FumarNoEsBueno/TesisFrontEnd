@@ -51,6 +51,7 @@ export class PreviewCompraComponent {
               private compraService: ComprasService){}
 
   @Input() abierto: any;
+  @Input() mobile: any;
   @Input() costoTotal: any;
   @Input() productos: Producto[] = [];
 
@@ -120,10 +121,12 @@ export class PreviewCompraComponent {
 
   finalizarCompra(){
     this.progresoCompra = 1;
-    this.compraService.comprarObjetos(this.productos,
+    this.compraService.comprarObjetos(
+      this.productos,
       this.selectedPago,
       this.selectedRetiro,
-      this.selectedDireccion)
+      this.selectedDireccion,
+      this.costoTotal)
       .subscribe({
       next: (res: any) => {
         this.progresoCompra = 2;

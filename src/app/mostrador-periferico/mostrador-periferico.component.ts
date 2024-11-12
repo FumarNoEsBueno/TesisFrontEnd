@@ -56,8 +56,10 @@ export class MostradorPerifericoComponent {
     id: 3
   }];
   preciosModel: any[] = [];
+  mobile: any;
 
   ngOnInit(){
+    this.getMobile();
     this.compraService.getEstados().subscribe((res) => this.estados = res);
     this.compraService.getMarcas().subscribe((res) => this.marcas = res);
     this.compraService.getTipoPeriferico().subscribe((res) => this.tipoPerifericos = res);
@@ -116,4 +118,13 @@ export class MostradorPerifericoComponent {
   reload(){
     this.onFilterChange();
   }
+
+  getMobile(){
+    if(window.innerWidth <= 800){
+      this.mobile = true;
+    }else{
+      this.mobile = false;
+    }
+  }
+
 }

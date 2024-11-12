@@ -1,4 +1,4 @@
-<div [style]="{ marginLeft:'11%',marginRight:'11%' }">
+<div [style]="mobile ? {} : mobileStyles">
   <app-nav-bar
     (abrirCarritoOutput)="abrirCarrito()">
   </app-nav-bar>
@@ -10,6 +10,7 @@
     (cerrarCarrito)="abrirCarrito()"
     (recargarPagina)="recargarPagina()"
     [abierto]="expandedCarrito"
+    [mobile]="mobile"
     [costoTotal]="costoTotal"
     [productos]="productos"></app-preview-compra>
 </div>
