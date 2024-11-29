@@ -23,7 +23,7 @@ export class AppComponent {
               private http:HttpClient,
               private router: Router) { }
 
-  title = 'TesisFrontEnd';
+  title = 'BioBioReciclajeSpa';
 
   mobile: boolean = true;
   mobileStyles = { marginLeft: '11%', marginRight: '11%' };

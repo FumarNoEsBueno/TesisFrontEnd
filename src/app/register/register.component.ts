@@ -32,6 +32,9 @@ export class RegisterComponent {
 
   messages: Message[] = [];
 
+  ngOnInit(){
+  }
+
   register(){
       let credentials = {
         name: this.name,

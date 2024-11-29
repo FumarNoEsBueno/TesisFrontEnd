@@ -114,7 +114,6 @@ export class PreviewCompraComponent {
         this.direcciones = res;
       },
       error: () => {
-        this.router.navigate(['/login'])
     }
     });
   }

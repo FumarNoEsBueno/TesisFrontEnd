@@ -46,17 +46,17 @@ export const routes: Routes = [{
     {
       path: 'historial',
       title: 'BioBío Reciclajes: historial compras',
-      component: HistorialComprasComponent,  // child route component that the router renders
+      component: HistorialComprasComponent,
     },
     {
       path: 'recepcion',
       title: 'BioBío Reciclajes: historial recepcion',
-      component: HistorialRecepcionComponent,  // child route component that the router renders
+      component: HistorialRecepcionComponent,
     },
     {
       path: 'direcciones',
       title: 'BioBío Reciclajes: gestion de perfil',
-      component: GestionPerfilComponent,  // another child route component that the router renders
+      component: GestionPerfilComponent,
     },
   ],
 },{

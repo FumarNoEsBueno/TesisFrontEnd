@@ -184,17 +184,7 @@
   }
   @case(2){
     <h3>Compra completada correctamente</h3>
-    @if(selectedRetiro == 'retiro'){
-    <div>
-    <span>Codigo compra</span>
-    <p-badge pTooltip="Use este codigo en la seccion de 'Historial de compras' para ver el estado de su pedido"
-      badgeSize="small" value="?"></p-badge>
-    <span>: {{detallesCompra.compra_codigo}} </span>
-    </div>
-    <div>
-      <span>Su pedido se está preparando, puede ver el estado del pedido en la sección de 'Historial de compras' de su perfil.</span>
-    </div>
-    }@else{
+    @if(selectedPago == 'transferencia'){
     <div>
     <span>Codigo compra</span>
     <p-badge pTooltip="Use este codigo en la seccion de 'Seguimiento de compra' para ver el estado de su pedido"
@@ -205,10 +195,24 @@
       <span>Su pedido se empezara a procesar una vez se haga el deposito a la siguiente
         cuenta bancaria y se envie el comprobante al email adjunto:</span>
     </div>
-    <div> <span> Rut: 19372032-3 </span> </div>
-    <div> <span> Cuenta rut: </span> </div>
-    <div> <span> Correo: biobioreciclajes&#64;gmail.com</span> </div>
-    <div> <span> Nombre: Jean Germain </span> </div>
+    <br>
+    <div> <span> BIOBIO RECICLAJES SpA </span> </div>
+    <div> <span> 77907204-5 </span> </div>
+    <div> <span> Banco de Chile </span> </div>
+    <div> <span> FAN Emprende </span> </div>
+    <div> <span> 536724289 </span> </div>
+    <div> <span> va.orialco&#64;gmail.com </span> </div>
+    <br>
+      <span>Su pedido se está preparando, puede ver el estado del pedido en la sección de 'Historial de compras' de su perfil.</span>
+    }@else{
+    <div>
+    <span>Codigo compra</span>
+    <p-badge pTooltip="Use este codigo en la seccion de 'Historial de compras' para ver el estado de su pedido"
+      badgeSize="small" value="?"></p-badge>
+    <span>: {{detallesCompra.compra_codigo}} </span>
+    </div>
+    <div>
+    </div>
     }
   }
   @case(3){
