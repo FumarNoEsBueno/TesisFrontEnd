@@ -42,11 +42,11 @@
       @switch(producto.tipoProducto){
       @case("disco"){
       <p-image
-        src="http://localhost:8000/api/images/{{producto.imagenUrl}}"
+        src="http://api.biobioreciclajes.cl/api/images/{{producto.imagenUrl}}"
         alt="Image" height="250" width="250"></p-image>
       <p-image
         [style]="{ marginLeft: '10px' }"
-        src="http://localhost:8000/api/images/{{producto.crystaldisk}}"
+        src="http://api.biobioreciclajes.cl/api/images/{{producto.crystaldisk}}"
         alt="Image" height="350" width="350"></p-image>
         <br>
       <span style="word-wrap: break-word;">
@@ -56,7 +56,7 @@
       }
       @case("periferico"){
       <p-image
-        src="http://localhost:8000/api/images/{{producto.imagenUrl}}"
+        src="http://api.biobioreciclajes.cl/api/images/{{producto.imagenUrl}}"
         alt="Image" height="250" width="250"></p-image>
       <br>
       <span style="word-wrap: break-word;">
@@ -66,7 +66,7 @@
       }
       @case("ram"){
       <p-image
-        src="http://localhost:8000/api/images/{{producto.imagenUrl}}"
+        src="http://api.biobioreciclajes.cl/api/images/{{producto.imagenUrl}}"
         alt="Image" height="250" width="250"></p-image>
       <br>
       <span style="word-wrap: break-word;">
